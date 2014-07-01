@@ -2,7 +2,7 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'bundler/setup'  
 require 'rack-flash' 
-enable :sessions 
+use Rack::Session::Cookie, :key => 'rack.session', :expire_after => 7200, :secret => 'speak_it'
 use Rack::Flash, :sweep => true
 
 configure(:development) {set :database, "sqlite3:exampledb.sqlite3"}
@@ -12,7 +12,8 @@ require './models'
 
 set :sessions, true
 def current_user   
-		if session[:user_id]     
+		if session[:user_id]    
+			puts "The current user is: #{session[:user_id]}" 
 			@current_user = Profile.find(session[:user_id])  
 		else
 			redirect "/login"
@@ -146,8 +147,8 @@ get '/follow' do
 	@current_user = current_user
 	UserFollow.create()
 	@user_follows =  UserFollow.last
-	#puts @user_follows.user_id = @current_user.user_id
-	#puts @user_follows.user_following_id = params[:ui]
+	@user_follows.user_id = @current_user.user_id
+	@user_follows.user_following_id = params[:ui]
 	@user_follows.save
 	@followed_user = User.find(params[:ui])
 	flash[:notice] = "You are now following #{@followed_user.fname} #{@followed_user.lname}" 
