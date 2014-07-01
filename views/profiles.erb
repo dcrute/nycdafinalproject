@@ -1,0 +1,18 @@
+<h1>All Users</h1>
+
+<form method="get" action="/post_profiles">
+<input type="text" class="post" name="post" pattern="(?:([\W\w])){1,150}" placeholder="What's on your mind???" autofocus>   
+<input type="submit"></form>
+
+<% if Profile.first%> 
+<%users = Profile.all%>
+<% users.each do |user| %>
+<% if user.user_id == @current_user.user_id%>
+<%else%> 
+</br>
+<%="<a href='/profile?un=#{user.username}&ui=#{user.user_id}' style='font-size:30px;'>#{user.username.capitalize}</a>"%>
+</br>
+<%end%>
+<% end %>
+<% end %>
+</br>

@@ -1,0 +1,28 @@
+<h2><%=@user_profile.username %>'s Profile</h2>
+<% if UserFollow.find_by_user_id_and_user_following_id @current_user.user_id, @user_profile.user_id%> 
+<%="<button type=\"button\" onclick=\"location.href='/unfollow?un=#{params[:un]}&ui=#{params[:ui]}'\">unfollow</button></br></br>"%>
+<% else%> 
+<%= "<button type=\"button\" onclick=\"location.href='/follow?un=#{params[:un]}&ui=#{params[:ui]}'\">follow</button></br></br>"%>
+<% end%> 
+<%="<form method=\"get\" action=\"/post_profile?un=#{params[:un]}&ui=#{params[:ui]}\">"%> 
+<input type="text" class="post" name="post" pattern="(?:([\W\w])){1,150}" placeholder="What's on your mind???" autofocus> 
+<%="<input type=\"hidden\" name=\"un\" value=\"#{params[:un]}\">"%> 
+<%="<input type=\"hidden\" name=\"ui\" value=\"#{params[:ui]}\">"%> 
+<input type="submit"></form>
+</br></br>
+<%= @user.fname %> &nbsp; <%= @user.lname %>
+</br>
+<%= @user_profile.bday %>
+</br>
+<%= @user_profile.hometown %>
+</br>
+<h4>Posts</h4>
+<% if Post.where(:user_id => @user_profile.user_id).first%> 
+<%posts = Post.where(:user_id => @user_profile.user_id).reverse_order%>
+<% posts.each do |post| %>
+</br>
+<%=post.string_data%>
+</br>
+<% end %>
+<% end %>
+</br>

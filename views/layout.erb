@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Speak It</title>
+   <link href="Styles/stylesheet.css" rel="stylesheet" type="text/css" />
+<script src=" Scripts/render.js"></script>
+</head>
+<body onload="setActive()">
+<div id="container">
+<div id="wrap">
+<div id="header">
+    <div id="head_menu" class="menu">
+<ul>
+<% my_menu = ["\"home\"", "\"login\"", "\"logout\"", "\"sign_up\"", "\"profiles\"", "\"edit_account\"", "\"delete_account\""] %>
+<% my_descriptions = ["Home", "Login", "Logout", "Sign-up", "Profiles", "Edit Account", "Delete Account"] %> 
+<% count = 0 %> 
+<% my_menu.each do |link| %>   
+
+<% if @current_user && link == "\"login\""%> 
+<% elsif !@current_user && link == "\"logout\""%>
+<% elsif !@current_user && link == "\"profiles\""%> 
+<% elsif !@current_user && link == "\"delete_account\""%>
+<% elsif !@current_user && link == "\"edit_account\""%> 
+<% elsif @current_user && link == "\"sign_up\""%> 
+<% else %> 
+<%= "<b><li><a href=#{link} id=#{link} class=\"\">#{my_descriptions[count]}</a></li></b>"%>
+<% end %>
+<% count+=1 %>
+<% end %>
+</ul>
+</div>
+</div><!--end header-->
+<%=flash[:notice] if flash[:notice] %>
+<div id="feed" class="side_bar">
+<h2>Feed</h2>
+<% if Post.first%> 
+<%posts = Post.limit(10).reverse_order%>
+<% posts.each do |post| %>
+</br>
+<% if !@current_user%>
+</br>
+<% else%> 
+<%user = User.find(post.user_id).profile%>
+<%="#{user.username}: #{post.string_data}"%>
+</br>
+<% end %>
+<% end %>
+<% end %>
+<% if !@current_user%>
+</br>
+<% else%> 
+<h2>Users Following</h2>
+<% if UserFollow.where(:user_id => @current_user.user_id).first%> 
+<%followers = UserFollow.where(:user_id => @current_user.user_id)%>
+<% followers.each do |following| %>
+<% user = User.find(following.user_following_id).profile%>
+<%="#{user.username}"%>
+ &nbsp;
+<% end %>
+<% end %>
+<% end %>
+</br>
+</div><!--End feed--!>
+<div id="inside_content">
+<%= yield %>
+</div><!--End inside_content--!>
+
+</div><!--End wrap--!>
+</div><!--End container--!>
+
+</body>
+</html>

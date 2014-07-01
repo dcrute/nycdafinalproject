@@ -1,0 +1,27 @@
+<h2>My Profile</h2>
+
+<form method="get" action="/post">
+<input type="text" class="post" name="post" pattern="(?:([\W\w])){1,150}" placeholder="What's on your mind???" autofocus>   
+<input type="submit"></form>
+</br>
+
+<%@user = Profile.find(@current_user.id).user %>
+<%="Name: #{@user.fname}"%>&nbsp;
+<%= @user.lname%>
+</br>
+<%="Birthday: #{@current_user.bday}"%>
+</br>
+<%="Hometown: #{@current_user.hometown}" %>
+</br>
+<%="Member Since: #{@user.created_at}" %>
+</br>
+<h4>Posts</h4>
+<% if Post.where(:user_id => @current_user.user_id).first%> 
+<%posts = Post.where(:user_id => @current_user.user_id).reverse_order%>
+<% posts.each do |post| %>
+</br>
+<%=post.string_data%>
+</br>
+<% end %>
+<% end %>
+</br>

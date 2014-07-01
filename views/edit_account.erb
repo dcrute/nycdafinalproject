@@ -1,0 +1,19 @@
+<h1>Edit Account</h1>
+<%@user = Profile.find(@current_user.id).user %>
+<form method="POST" action="/edit-account-process">  
+<label for="fname">First Name</label>  
+<%="<input type=\"text\" name=\"fname\" placeholder=\"#{@user.fname}\">"%> 
+<label for="lname">Last Name</label>  
+<%="<input type=\"text\" name=\"lname\" placeholder=\"#{@user.lname}\">"%>
+</br>
+<label for="email">E-mail</label>  
+<%="<input type=\"email\" name=\"email\" placeholder=\"#{@user.email}\">"%>
+<label for="hometown">Hometown</label>  
+<%="<input type=\"text\" name=\"hometown\" placeholder=\"#{@current_user.hometown}\">"%>
+</br>
+<label for="bday">Birthday: Ex. yyyy-mm-dd hh:mm:ss</label>  
+<%="<input type=\"text\" name=\"bday\" placeholder=\"#{@current_user.bday}\">"%>
+</br>
+<label for="password">Password</label>  
+<input type="password" name="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" autofocus>  
+<input type="submit"></form>
