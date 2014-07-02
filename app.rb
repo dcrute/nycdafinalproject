@@ -10,6 +10,27 @@ configure(:development) {set :database, "sqlite3:exampledb.sqlite3"}
 
 require './models'
 
+require 'net/smtp'
+
+def send_email(to,opts={})
+  opts[:server]      ||= 'smtp.gmail.com'
+  opts[:from]        ||= 'dcrute@ecfs.org'
+  opts[:from_alias]  ||= 'Speak-It'
+  opts[:subject]     ||= "Speak-It Password Reset"
+  opts[:body]        ||= "Important stuff!"
+
+  msg = <<END_OF_MESSAGE
+From: #{opts[:from_alias]} <#{opts[:from]}>
+To: <#{to}>
+Subject: #{opts[:subject]}
+
+#{opts[:body]}
+END_OF_MESSAGE
+
+  Net::SMTP.start(opts[:server]) do |smtp|
+    smtp.send_message msg, opts[:from], to
+  end
+end
 
 set :sessions, true
 def current_user   
@@ -175,7 +196,23 @@ get '/unfollow' do
 	redirect "/profile?un=#{params[:un]}&ui=#{params[:ui]}"      
 end
 
+post '/password_reset' do
+	if User.find_by_email(params[:email]).blank?
+		flash[:notice] = "There is no record of an account with the e-mail address #{params[:email]}"
+		redirect "/login"
+	else
+		@user = User.find_by_email(params[:email])
+		random_password = Array.new(10).map { (65 + rand(58)).chr }.join
+		@profile = Profile.find_by_user_id(@user.id)
+		@profile.password = random_password
+		@profile.save!
+		send_email "#{@user.email}", :body => "Your password has been changed to: \n\t #{random_password} \n Please change your password when you first log in."
+	end
+end
 
+get '/forgot_password' do
+  erb :forgot_password
+end
 
 get '/post' do
 	@current_user = current_user
