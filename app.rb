@@ -15,7 +15,7 @@ set :sessions, true
 def current_user   
 		if session[:user_id]    
 			puts "The current user is: #{session[:user_id]}" 
-			@current_user = Profile.find(session[:user_id])  
+			if Profile.where(session[:user_id]).blank? then redirect "/logout" else @current_user = Profile.find(session[:user_id]) end 
 		else
 			redirect "/login"
 		end
@@ -80,23 +80,33 @@ end
 
 post '/sign-up-process' do
 	#puts "my params are" + params.inspect
-	User.create()
-	Profile.create()
-	@signup = User.last
-	@signup.email = params[:email]
-	@signup.lname = params[:lname]
-	@signup.fname = params[:fname]
-	@signup.save
-	@signup2 = Profile.last
-	@signup2.bday = params[:bday]
-	@signup2.username = params[:username]
-	@signup2.password = params[:password]
-	@signup2.hometown = params[:hometown]
-	@signup2.user_id = @signup.id
-	@signup2.save
-	session[:user_id] = @signup2.id   
-	flash[:notice] = "Welcome to the cool kids club!" 
-	redirect "/home"      
+	if Profile.find_by_username(params[:username])
+		flash[:notice] = "Sorry that username is already taken, try another one." 
+		redirect "/sign_up"
+	else
+		if User.find_by_email(params[:email])
+			flash[:notice] = "That e-mail address is already in use. </br>Please use a new e-mail address." 
+			redirect "/sign_up"
+		else
+			User.create()
+			Profile.create()
+			@signup = User.last
+			@signup.email = params[:email]
+			@signup.lname = params[:lname]
+			@signup.fname = params[:fname]
+			@signup.save
+			@signup2 = Profile.last
+			@signup2.bday = params[:bday]
+			@signup2.username = params[:username]
+			@signup2.password = params[:password]
+			@signup2.hometown = params[:hometown]
+			@signup2.user_id = @signup.id
+			@signup2.save
+			session[:user_id] = @signup2.id   
+			flash[:notice] = "Welcome to the cool kids club!" 
+			redirect "/home"
+		end    
+	end  
 end
 
 
@@ -164,6 +174,8 @@ get '/unfollow' do
 	@user_follows.destroy
 	redirect "/profile?un=#{params[:un]}&ui=#{params[:ui]}"      
 end
+
+
 
 get '/post' do
 	@current_user = current_user
