@@ -6,14 +6,14 @@
 </br>
 
 <%@user = Profile.find(@current_user.id).user %>
-<%="Name: #{@user.fname}"%>&nbsp;
+Name: <%=@user.fname%>&nbsp;
 <%= @user.lname%>
 </br>
-<%="Birthday: #{@current_user.bday}"%>
+Birthday: <%=@current_user.bday.strftime("%b %d, %Y")%>
 </br>
-<%="Hometown: #{@current_user.hometown}" %>
+Hometown: <%= @current_user.hometown %>
 </br>
-<%="Member Since: #{@user.created_at}" %>
+Member Since: <%=@user.created_at%>
 </br>
 <h4>Posts</h4>
 <% if Post.where(:user_id => @current_user.user_id).first%> 

@@ -20,10 +20,10 @@ ActiveRecord::Schema.define(version: 20140625101327) do
 
   create_table "profiles", force: true do |t|
     t.string   "username"
-    t.string   "password"
     t.string   "hometown"
     t.datetime "bday"
     t.integer  "user_id"
+    t.string   "password_hash"
   end
 
   create_table "user_follows", force: true do |t|

@@ -12,13 +12,13 @@
 </br></br>
 <%= @user.fname %> &nbsp; <%= @user.lname %>
 </br>
-<%= @user_profile.bday %>
+<%= @user_profile.bday.strftime("%b %d, %Y") %>
 </br>
 <%= @user_profile.hometown %>
 </br>
 <h4>Posts</h4>
 <% if Post.where(:user_id => @user_profile.user_id).first%> 
-<%posts = Post.where(:user_id => @user_profile.user_id).reverse_order%>
+<%posts = Post.where(:user_id => @user_profile.user_id).limit(100).reverse_order%>
 <% posts.each do |post| %>
 </br>
 <%=post.string_data%>

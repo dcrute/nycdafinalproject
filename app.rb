@@ -1,7 +1,8 @@
 require 'sinatra' 
 require 'sinatra/activerecord'
 require 'bundler/setup'  
-require 'rack-flash' 
+require 'rack-flash'
+require 'bcrypt' 
 use Rack::Session::Cookie, :key => 'rack.session', :expire_after => 7200, :secret => 'speak_it'
 use Rack::Flash, :sweep => true
 
@@ -61,7 +62,7 @@ end
 
 post '/login-process' do
 	#puts "my params are" + params.inspect 
-	@userin = Profile.where(username: params[:username]).first
+	@userin = Profile.find_by_username(params[:username])
 	if @userin && @userin.password == params[:password] 
 		session[:user_id] = @userin.id
 		flash[:notice] = "You're in!!!"
