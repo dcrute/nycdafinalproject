@@ -13,7 +13,7 @@ require './models'
 
 def send_email(to,opts={})
   opts[:server]      ||= 'smtp.gmail.com'
-  opts[:from]        ||= 'dcrute@ecfs.org'
+  opts[:from]        ||= 'dcrute25@gmail.com'
   opts[:from_alias]  ||= 'Speak-It'
   opts[:subject]     ||= "Speak-It Password Reset"
   opts[:body]        ||= "Important stuff!"
