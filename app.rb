@@ -3,7 +3,6 @@ require 'sinatra/activerecord'
 require 'bundler/setup'  
 require 'rack-flash'
 require 'bcrypt' 
-require 'net/smtp'
 use Rack::Session::Cookie, :key => 'rack.session', :expire_after => 7200, :secret => 'speak_it'
 use Rack::Flash, :sweep => true
 
@@ -11,25 +10,6 @@ configure(:development) {set :database, "sqlite3:exampledb.sqlite3"}
 
 require './models'
 
-def send_email(to,opts={})
-  opts[:server]      ||= 'smtp.gmail.com'
-  opts[:from]        ||= 'dcrute25@gmail.com'
-  opts[:from_alias]  ||= 'Speak-It'
-  opts[:subject]     ||= "Speak-It Password Reset"
-  opts[:body]        ||= "Important stuff!"
-
-  msg = <<END_OF_MESSAGE
-From: #{opts[:from_alias]} <#{opts[:from]}>
-To: <#{to}>
-Subject: #{opts[:subject]}
-
-#{opts[:body]}
-END_OF_MESSAGE
-
-  Net::SMTP.start(opts[:server]) do |smtp|
-    smtp.send_message msg, opts[:from], to
-  end
-end
 
 set :sessions, true
 def current_user   
@@ -199,12 +179,23 @@ post '/password_reset' do
 		flash[:notice] = "There is no record of an account with the e-mail address #{params[:email]}"
 		redirect "/login"
 	else
+		@profile = Profile.find_by_username_and_hometown params[:username], params[:hometown]
 		@user = User.find_by_email(params[:email])
-		random_password = Array.new(10).map { (65 + rand(58)).chr }.join
-		@profile = Profile.find_by_user_id(@user.id)
-		@profile.password = random_password
-		@profile.save!
-		send_email "#{@user.email}", :body => "Your password has been changed to: \n\t #{random_password} \n Please change your password when you first log in."
+		@profile_check = Profile.find_by_user_id(@user.id)
+		puts "\n\n"
+		puts @user.inspect
+		puts @profile.inspect
+		puts @profile_check.inspect
+		if @profile.username == @profile_check.username && @profile.hometown == @profile_check.hometown
+			#random_password = Array.new(10).map { (65 + rand(58)).chr }.join
+			#@profile_check.password = random_password
+			#@profile_check.save!
+			session[:user_id] = @profile_check.id
+			flash[:notice] = "Take this time to update your password!"
+			redirect "/edit_account"
+		else
+			flash[:notice] = "That information is incorrect. Please try again"
+		end
 	end
 end
 
