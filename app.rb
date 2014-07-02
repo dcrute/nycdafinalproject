@@ -3,14 +3,13 @@ require 'sinatra/activerecord'
 require 'bundler/setup'  
 require 'rack-flash'
 require 'bcrypt' 
+require 'net/smtp'
 use Rack::Session::Cookie, :key => 'rack.session', :expire_after => 7200, :secret => 'speak_it'
 use Rack::Flash, :sweep => true
 
 configure(:development) {set :database, "sqlite3:exampledb.sqlite3"}
 
 require './models'
-
-require 'net/smtp'
 
 def send_email(to,opts={})
   opts[:server]      ||= 'smtp.gmail.com'
@@ -35,8 +34,7 @@ end
 set :sessions, true
 def current_user   
 		if session[:user_id]    
-			puts "The current user is: #{session[:user_id]}" 
-			if Profile.where(session[:user_id]).blank? then redirect "/logout" else @current_user = Profile.find(session[:user_id]) end 
+			if Profile.find(session[:user_id]).blank? then redirect "/logout" else @current_user = Profile.find(session[:user_id]) end 
 		else
 			redirect "/login"
 		end
