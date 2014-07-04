@@ -6,16 +6,19 @@
 </br>
 
 <%@user = Profile.find(@current_profile.id).user %>
-<%="<img class=\"profile_pics\" src=\"#{@current_profile.avatar.url}\" alt=\"#{@current_profile.username}\'s Profile Picture\" width=\"100\" height=\"100\">"%>
-Name: <%=@user.fname%>&nbsp;
-<%= @user.lname%>
+<%="<img class=\"profile_pics\" src=\"#{@current_profile.avatar.url}\" alt=\"#{@current_profile.username.capitalize}\'s Profile Picture\" width=\"100\" height=\"100\">"%>
+Name: <%= @user.fname.capitalize %>&nbsp;
+<%= @user.lname.capitalize %>
 </br>
-Birthday: <%=@current_profile.bday.strftime("%b %d, %Y")%>
+E-Mail: <%= @user.email.capitalize %>
 </br>
-Hometown: <%= @current_profile.hometown %>
+Birthday: <%= @current_profile.bday.strftime("%b %d, %Y") %>
 </br>
-Member Since: <%=@user.created_at%>
+Hometown: <%= @current_profile.hometown.titleize %>
 </br>
+Member Since: <%= @user.created_at.strftime("%b %d, %Y") %>
+</br>
+
 <h4>Posts</h4>
 <% if Post.where(:user_id => @current_profile.user_id).first%> 
 <%posts = Post.where(:user_id => @current_profile.user_id).reverse_order%>

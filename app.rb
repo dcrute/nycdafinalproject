@@ -65,7 +65,7 @@ end
 
 post '/login-process' do
 	#puts "my params are" + params.inspect 
-	@userin = Profile.find_by_username(params[:username])
+	@userin = Profile.find_by_username(params[:username].downcase)
 	if @userin && @userin.password == params[:password] 
 		session[:user_id] = @userin.id
 		flash[:notice] = "You're in!!!"
@@ -83,31 +83,31 @@ end
 
 post '/sign-up-process' do
 	#puts "my params are" + params.inspect
-	if Profile.find_by_username(params[:username])
+	if Profile.find_by_username(params[:username].downcase)
 		flash[:notice] = "Sorry that username is already taken, try another one." 
 		redirect "/sign_up"
 	else
-		if User.find_by_email(params[:email])
+		if User.find_by_email(params[:email].downcase)
 			flash[:notice] = "That e-mail address is already in use. </br>Please use a new e-mail address." 
 			redirect "/sign_up"
 		else
 			User.create()
 			Profile.create()
 			@signup = User.last
-			@signup.email = params[:email]
-			@signup.lname = params[:lname]
-			@signup.fname = params[:fname]
+			@signup.email = params[:email].downcase
+			@signup.lname = params[:lname].downcase
+			@signup.fname = params[:fname].downcase
 			@signup.save
 			@signup2 = Profile.last
 			if params[:file].blank?
-				@signup2.avatar = File.open('public/profile_pictures/default.jpg')
+				@signup2.avatar = File.open('public/default_picture/default.jpg')
 			else
 				@signup2.avatar = params[:file]
 			end
 			@signup2.bday = params[:bday]
-			@signup2.username = params[:username]
+			@signup2.username = params[:username].downcase
 			@signup2.password = params[:password]
-			@signup2.hometown = params[:hometown]
+			@signup2.hometown = params[:hometown].downcase
 			@signup2.user_id = @signup.id
 			@signup2.save
 			session[:user_id] = @signup2.id   
@@ -130,18 +130,17 @@ get '/edit_account' do
 end
 
 post '/edit-account-process' do
-	#puts "my params are" + params.inspect
 	@current_profile = current_profile
-	puts "\n\nmy paramaters are: #{params.inspect}\]\n\n"
+	# puts "\n\nmy paramaters are: #{params.inspect}\]\n\n"
 	@user = Profile.find(@current_profile.id).user
-	@user.email = params[:email] unless params[:email].blank?
-	@user.lname = params[:lname] unless params[:lname].blank?
-	@user.fname = params[:fname] unless params[:fname].blank?
+	@user.email = params[:email].downcase unless params[:email].blank?
+	@user.lname = params[:lname].downcase unless params[:lname].blank?
+	@user.fname = params[:fname].downcase unless params[:fname].blank?
 	@user.save
 	@current_profile.avatar = params[:file] #unless params[:file].blank?
 	@current_profile.bday = params[:bday] unless params[:bday].blank?
 	@current_profile.password = params[:password] unless params[:password].blank?
-	@current_profile.hometown = params[:hometown] unless params[:hometown].blank?
+	@current_profile.hometown = params[:hometown].downcase unless params[:hometown].blank?
 	@current_profile.save  
 	flash[:notice] = "Your Account has been Updated!" 
 	redirect "/home"      
@@ -191,8 +190,8 @@ post '/password_reset' do
 		redirect "/login"
 	else
 		bday = DateTime.parse(params[:bday])
-		@profile = Profile.find_by_username_and_hometown_and_bday params[:username], params[:hometown], bday
-		@user = User.find_by_email(params[:email])
+		@profile = Profile.find_by_username_and_hometown_and_bday params[:username].downcase, params[:hometown].downcase, bday
+		@user = User.find_by_email(params[:email].downcase)
 		@profile_check = Profile.find_by_user_id(@user.id)
 		puts "\n\n"
 		puts @user.inspect
