@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20140625101327) do
     t.datetime "bday"
     t.integer  "user_id"
     t.string   "password_hash"
+    t.string   "avatar"
   end
 
   create_table "user_follows", force: true do |t|

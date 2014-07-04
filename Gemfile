@@ -6,6 +6,7 @@ gem 'sinatra-activerecord'
 gem 'rake'
 gem 'rack-flash3'
 gem 'bcrypt-ruby'
+gem 'carrierwave'
 
 group :development do
  gem 'sqlite3'

@@ -1,5 +1,5 @@
 <h2><%=@user_profile.username %>'s Profile</h2>
-<% if UserFollow.find_by_user_id_and_user_following_id @current_user.user_id, @user_profile.user_id%> 
+<% if UserFollow.find_by_user_id_and_user_following_id @current_profile.user_id, @user_profile.user_id%> 
 <%="<button type=\"button\" onclick=\"location.href='/unfollow?un=#{params[:un]}&ui=#{params[:ui]}'\">unfollow</button></br></br>"%>
 <% else%> 
 <%= "<button type=\"button\" onclick=\"location.href='/follow?un=#{params[:un]}&ui=#{params[:ui]}'\">follow</button></br></br>"%>
@@ -10,6 +10,7 @@
 <%="<input type=\"hidden\" name=\"ui\" value=\"#{params[:ui]}\">"%> 
 <input type="submit"></form>
 </br></br>
+<%="<img class=\"profile_pics\" src=\"#{@user_profile.avatar.url}\" alt=\"#{@user_profile.username}\'s Profile Picture\" width=\"100\" height=\"100\">"%>
 <%= @user.fname %> &nbsp; <%= @user.lname %>
 </br>
 <%= @user_profile.bday.strftime("%b %d, %Y") %>

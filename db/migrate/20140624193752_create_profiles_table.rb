@@ -5,7 +5,8 @@ class CreateProfilesTable < ActiveRecord::Migration
   		entry.string :hometown
   		entry.datetime :bday
   		entry.integer :user_id
-  		entry.string :password_hash	
+  		entry.string :password_hash
+  		entry.string :avatar
   	end
   end
 end

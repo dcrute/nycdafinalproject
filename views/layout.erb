@@ -16,12 +16,12 @@
 <% count = 0 %> 
 <% my_menu.each do |link| %>   
 
-<% if @current_user && link == "\"login\""%> 
-<% elsif !@current_user && link == "\"logout\""%>
-<% elsif !@current_user && link == "\"profiles\""%> 
-<% elsif !@current_user && link == "\"delete_account\""%>
-<% elsif !@current_user && link == "\"edit_account\""%> 
-<% elsif @current_user && link == "\"sign_up\""%> 
+<% if @current_profile && link == "\"login\""%> 
+<% elsif !@current_profile && link == "\"logout\""%>
+<% elsif !@current_profile && link == "\"profiles\""%> 
+<% elsif !@current_profile && link == "\"delete_account\""%>
+<% elsif !@current_profile && link == "\"edit_account\""%> 
+<% elsif @current_profile && link == "\"sign_up\""%> 
 <% else %> 
 <%= "<b><li><a href=#{link} id=#{link} class=\"\">#{my_descriptions[count]}</a></li></b>"%>
 <% end %>
@@ -37,7 +37,7 @@
 <%posts = Post.limit(10).reverse_order%>
 <% posts.each do |post| %>
 </br>
-<% if !@current_user%>
+<% if !@current_profile%>
 </br>
 <% else%> 
 <%user = User.find(post.user_id).profile%>
@@ -46,15 +46,15 @@
 <% end %>
 <% end %>
 <% end %>
-<% if !@current_user%>
+<% if !@current_profile%>
 </br>
 <% else%> 
 <h2 style="text-align:center;">Users Following</h2>
-<% if UserFollow.where(:user_id => @current_user.user_id).first%> 
-<%followers = UserFollow.where(:user_id => @current_user.user_id)%>
+<% if UserFollow.where(:user_id => @current_profile.user_id).first%> 
+<%followers = UserFollow.where(:user_id => @current_profile.user_id)%>
 <% followers.each do |following| %>
 <% user = User.find(following.user_following_id).profile%>
-<%="#{user.username}"%>
+<%="<a href='/profile?un=#{user.username}&ui=#{user.user_id}'>#{user.username}</a>"%>
  &nbsp;
 <% end %>
 <% end %>

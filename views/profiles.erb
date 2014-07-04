@@ -7,7 +7,7 @@
 <% if Profile.first%> 
 <%users = Profile.all%>
 <% users.each do |user| %>
-<% if user.user_id == @current_user.user_id%>
+<% if user.user_id == @current_profile.user_id%>
 <%else%> 
 </br>
 <%="<a href='/profile?un=#{user.username}&ui=#{user.user_id}' style='font-size:30px;'>#{user.username.capitalize}</a>"%>

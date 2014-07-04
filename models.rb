@@ -1,3 +1,16 @@
+class AvatarUploader < CarrierWave::Uploader::Base
+  storage :file
+  
+  def extension_white_list
+    %w(jpg jpeg gif png)
+  end
+  
+  def store_dir
+    'profile_pictures'
+  end
+  
+end
+
 class User < ActiveRecord::Base
 	has_one :profile
 	has_many :posts
@@ -7,6 +20,7 @@ end
 
 class Profile < ActiveRecord::Base
 	belongs_to :user
+	mount_uploader :avatar, AvatarUploader
 	include BCrypt
 
   def password

@@ -1,7 +1,7 @@
 <h1>Edit Account</h1>
-<%@user = Profile.find(@current_user.id).user %>
-<%@bday = @current_user.bday.strftime("%Y-%m-%d")%>
-<form method="POST" action="/edit-account-process">  
+<%@user = Profile.find(@current_profile.id).user %>
+<%@bday = @current_profile.bday.strftime("%Y-%m-%d")%>
+<form method="POST" action="/edit-account-process" enctype="multipart/form-data">  
 <label for="fname">First Name</label>  
 <%="<input type=\"text\" name=\"fname\" placeholder=\"#{@user.fname}\">"%> 
 <label for="lname">Last Name</label>  
@@ -10,11 +10,14 @@
 <label for="email">E-mail</label>  
 <%="<input type=\"email\" name=\"email\" placeholder=\"#{@user.email}\">"%>
 <label for="hometown">Hometown</label>  
-<%="<input type=\"text\" name=\"hometown\" placeholder=\"#{@current_user.hometown}\">"%>
+<%="<input type=\"text\" name=\"hometown\" placeholder=\"#{@current_profile.hometown}\">"%>
 </br>
 <label for="bday">Birthday: Ex. yyyy-mm-dd</label>  
-<%="<input type=\"text\" name=\"bday\" patter=\"(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))\" placeholder=\"#{@bday}\">"%>
+<%="<input type=\"text\" name=\"bday\" pattern=\"[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])\" placeholder=\"#{@bday}\">"%>
 </br>
 <label for="password">Password</label>  
-<input type="password" name="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" autofocus>  
+<input type="password" name="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" autofocus>
+</br>
+<label for="file">Profile Picture</label>
+<input type="file" name="file">
 <input type="submit"></form>
