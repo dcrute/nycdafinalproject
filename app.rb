@@ -216,18 +216,30 @@ end
 
 get '/post' do
 	@current_profile = current_profile
-	create_post
+	if params.blank?
+		puts "Params are blank: + #{params.inspect}"
+	else
+		create_post
+	end
 	redirect "/home"      
 end
 
 get '/post_profile' do
 	@current_profile = current_profile
-	create_post
+	if params.blank?
+		puts "Params are blank: + #{params.inspect}"
+	else
+		create_post
+	end
 	redirect "/profile?un=#{params[:un]}&ui=#{params[:ui]}"      
 end
 
 get '/post_profiles' do
 	@current_profile = current_profile
-	create_post
+	if params.blank?
+		puts "Params are blank: + #{params.inspect}"
+	else
+		create_post
+	end
 	redirect "/profiles"      
 end
