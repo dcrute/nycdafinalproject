@@ -216,18 +216,18 @@ end
 
 get '/post' do
 	@current_profile = current_profile
-	create_post unless (params.[:post]).blank?
+	create_post unless params[:post].blank?
 	redirect "/home"      
 end
 
 get '/post_profile' do
 	@current_profile = current_profile
-	create_post unless (params.[:post]).blank?
+	create_post unless params[:post].blank?
 	redirect "/profile?un=#{params[:un]}&ui=#{params[:ui]}"      
 end
 
 get '/post_profiles' do
 	@current_profile = current_profile
-	create_post unless (params.[:post]).blank?
+	create_post unless params[:post].blank?
 	redirect "/profiles"      
 end
