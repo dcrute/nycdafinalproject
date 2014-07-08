@@ -1,0 +1,18 @@
+<h2>Administrator Dashboard</h2>
+
+<%@user = Profile.find(@current_profile.id).user %>
+
+<h4>Notifications</h4>
+<% if Notification.first%> 
+<%notifications = Notification.all.reverse_order%>
+<% notifications.each do |notes| %>
+</br>
+<%=notes.notice%>
+</br>
+<%="<a href='/approve_user?ui=#{notes.user_id}'>Approve</a>"%>
+&nbsp;&nbsp;
+<%="<a href='/reject_user?ui=#{notes.user_id}'>Reject</a>"%>
+</br>
+<% end %>
+<% end %>
+</br>

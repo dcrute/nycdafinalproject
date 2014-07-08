@@ -6,6 +6,8 @@ class CreateProfilesTable < ActiveRecord::Migration
   		entry.datetime :bday
   		entry.integer :user_id
   		entry.string :password_hash
+      entry.boolean :admin
+      entry.boolean :approved
   		entry.string :avatar
   	end
   end

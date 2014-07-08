@@ -11,8 +11,8 @@
 <div id="header">
     <div id="head_menu" class="menu">
 <ul>
-<% my_menu = ["\"home\"", "\"login\"", "\"logout\"", "\"sign_up\"", "\"profiles\"", "\"edit_account\"", "\"delete_account\""] %>
-<% my_descriptions = ["Home", "Login", "Logout", "Sign-up", "Profiles", "Edit Account", "Delete Account"] %> 
+<% my_menu = ["\"home\"", "\"login\"", "\"logout\"", "\"sign_up\"", "\"profiles\"", "\"edit_account\"", "\"delete_account\"", "\"admin_screen\""] %>
+<% my_descriptions = ["Home", "Login", "Logout", "Sign-up", "Profiles", "Edit Account", "Delete Account", "Admin Dashboard"] %> 
 <% count = 0 %> 
 <% my_menu.each do |link| %>   
 
@@ -22,6 +22,13 @@
 <% elsif !@current_profile && link == "\"delete_account\""%>
 <% elsif !@current_profile && link == "\"edit_account\""%> 
 <% elsif @current_profile && link == "\"sign_up\""%> 
+<% elsif !@current_profile && link == "\"admin_screen\""%>
+	<%if @current_profile.blank? %>
+	<%else%>
+		<%if !@current_profile.admin == true%>
+			<%="<b><li><a href=#{link} id=#{link} class=\"\">#{my_descriptions[count]}</a></li></b>"%>
+		<%end%>
+	<%end%>
 <% else %> 
 <%= "<b><li><a href=#{link} id=#{link} class=\"\">#{my_descriptions[count]}</a></li></b>"%>
 <% end %>

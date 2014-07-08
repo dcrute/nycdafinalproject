@@ -14,6 +14,7 @@ end
 class User < ActiveRecord::Base
 	has_one :profile
 	has_many :posts
+  has_many :notifications
 	has_many :user_follows
 	has_many :users, through: :user_follows
 end
@@ -35,6 +36,10 @@ end
 
 class Post < ActiveRecord::Base
 	belongs_to :user
+end
+
+class Notification < ActiveRecord::Base
+  belongs_to :user
 end
 
 class UserFollow <ActiveRecord::Base

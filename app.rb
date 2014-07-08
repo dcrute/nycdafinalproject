@@ -18,7 +18,7 @@ require './models'
 set :sessions, true
 def current_profile   
 		if session[:user_id]    
-			if Profile.find(session[:user_id]).blank? then redirect "/logout" else @current_profile = Profile.find(session[:user_id]) end 
+			if Profile.find(session[:user_id]).blank? then redirect "/logout" else @current_profile = Profile.find(session[:user_id]) end
 		else
 			redirect "/login"
 		end
@@ -66,7 +66,7 @@ end
 post '/login-process' do
 	#puts "my params are" + params.inspect 
 	@userin = Profile.find_by_username(params[:username].downcase)
-	if @userin && @userin.password == params[:password] 
+	if @userin && @userin.password == params[:password] && @userin.approved == true
 		session[:user_id] = @userin.id
 		flash[:notice] = "You're in!!!"
 		redirect "/home"   
@@ -110,8 +110,10 @@ post '/sign-up-process' do
 			@signup2.hometown = params[:hometown].downcase
 			@signup2.user_id = @signup.id
 			@signup2.save
-			session[:user_id] = @signup2.id   
+			#session[:user_id] = @signup2.id  
+			Notification.create(notice: "#{@signup.lname.capitalize}, #{@signup.fname.capitalize} is waiting to be approved.", user_id: @signup.id) 
 			flash[:notice] = "Welcome to the cool kids club!" 
+			flash[:alert] = "Your account should be approved for use withn 2-3 days"
 			redirect "/home"
 		end    
 	end  
@@ -197,15 +199,21 @@ post '/password_reset' do
 		puts @user.inspect
 		puts @profile.inspect
 		puts @profile_check.inspect
-		if @profile.username == @profile_check.username && @profile.hometown == @profile_check.hometown && @profile.bday == @profile_check.bday
-			#random_password = Array.new(10).map { (65 + rand(58)).chr }.join
-			#@profile_check.password = random_password
-			#@profile_check.save!
-			session[:user_id] = @profile_check.id
-			flash[:notice] = "Take this time to update your password!"
-			redirect "/edit_account"
+		if @profile.approved == true
+			if @profile.username == @profile_check.username && @profile.hometown == @profile_check.hometown && @profile.bday == @profile_check.bday
+				#random_password = Array.new(10).map { (65 + rand(58)).chr }.join
+				#@profile_check.password = random_password
+				#@profile_check.save!
+				session[:user_id] = @profile_check.id
+				flash[:notice] = "Take this time to update your password!"
+				redirect "/edit_account"
+			else
+				flash[:notice] = "That information is incorrect. Please try again"
+				redirect "/home"
+			end
 		else
-			flash[:notice] = "That information is incorrect. Please try again"
+			flash[:notice] = "Your account has not be approved yet. Please try again later"
+			redirect "/home"
 		end
 	end
 end
@@ -218,6 +226,44 @@ get '/post' do
 	@current_profile = current_profile
 	create_post unless params[:post].blank?
 	redirect "/home"      
+end
+
+get '/admin_screen' do
+	@current_profile = current_profile
+	if @current_profile.admin == true
+		erb :admin_screen
+	else
+		redirect '/home'
+	end   
+end
+
+get '/approve_user' do
+@current_profile = current_profile
+	if @current_profile.admin == true
+		@userin = Profile.find_by_user_id(params[:ui])
+		note = Notification.find_by_user_id @userin.user_id
+		note.destroy unless note.blank?
+		@userin.approved = true unless @userin.blank?
+		@userin.admin = false unless @userin.blank?
+		erb :admin_screen
+	else
+		redirect '/home'
+	end   
+end
+
+get '/reject_user' do
+@current_profile = current_profile
+	if @current_profile.admin == true
+		@userin = Profile.find_by_user_id(params[:ui])
+		@profilein = User.find(@userin.id) unless @userin.blank?
+		note = Notification.find_by_user_id @userin.user_id
+		note.destroy unless note.blank?
+		@profilein.destroy unless @profilein.blank?
+		@userin.destory unless @userin.blank?
+		erb :admin_screen
+	else
+		redirect '/home'
+	end   
 end
 
 get '/post_profile' do

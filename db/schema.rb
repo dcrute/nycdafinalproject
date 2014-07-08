@@ -11,7 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140625101327) do
+ActiveRecord::Schema.define(version: 20140708123045) do
+
+  create_table "notifications", force: true do |t|
+    t.string  "notice"
+    t.integer "user_id"
+  end
 
   create_table "posts", force: true do |t|
     t.string  "string_data"
@@ -24,6 +29,8 @@ ActiveRecord::Schema.define(version: 20140625101327) do
     t.datetime "bday"
     t.integer  "user_id"
     t.string   "password_hash"
+    t.boolean  "admin"
+    t.boolean  "approved"
     t.string   "avatar"
   end
 
