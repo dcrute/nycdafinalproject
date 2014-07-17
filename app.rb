@@ -31,7 +31,19 @@ def create_post
 	@post.user_id = @current_profile.user_id
 	@post.save
 end
-	
+
+get '/delete_post' do
+	Post.find(params[:pid]).destroy
+	redirect "/home"
+end
+
+get '/edit_post' do
+	@post = Post.find(params[:pid])
+	@post.string_data = params[:post]
+	@post.save
+	redirect "/home"
+end
+
 get '/' do
 	@current_profile = current_profile
 	redirect "/home"
@@ -100,7 +112,7 @@ post '/sign-up-process' do
 			@signup.save
 			@signup2 = Profile.last
 			if params[:file].blank?
-				@signup2.avatar = File.open('public/default_picture/default.jpg')
+				#@signup2.avatar = File.open('public/default_picture/default.jpg')
 			else
 				@signup2.avatar = params[:file]
 			end
@@ -240,12 +252,16 @@ end
 get '/approve_user' do
 @current_profile = current_profile
 	if @current_profile.admin == true
-		@userin = Profile.find_by_user_id(params[:ui])
-		note = Notification.find_by_user_id @userin.user_id
-		note.destroy unless note.blank?
-		@userin.approved = true unless @userin.blank?
-		@userin.admin = false unless @userin.blank?
-		erb :admin_screen
+		@profilein = Profile.find_by_user_id(params[:ui])
+		note = Notification.find_by_user_id @profilein.user_id
+		puts "user in is #{@profilein.inspect}"
+		if !@profilein.blank?
+			@profilein.approved = true
+			@profilein.admin = false
+			@profilein.save
+			note.destroy unless note.blank?
+		end
+		redirect '/admin_screen'
 	else
 		redirect '/home'
 	end   
@@ -254,12 +270,12 @@ end
 get '/reject_user' do
 @current_profile = current_profile
 	if @current_profile.admin == true
-		@userin = Profile.find_by_user_id(params[:ui])
-		@profilein = User.find(@userin.id) unless @userin.blank?
-		note = Notification.find_by_user_id @userin.user_id
+		@profilein = Profile.find_by_user_id(params[:ui])
+		@userin = User.find(@profilein.id) unless @profilein.blank?
+		note = Notification.find_by_user_id @profilein.user_id
 		note.destroy unless note.blank?
-		@profilein.destroy unless @profilein.blank?
-		@userin.destory unless @userin.blank?
+		@userein.destroy unless @userin.blank?
+		@profilein.destory unless @profilein.blank?
 		erb :admin_screen
 	else
 		redirect '/home'

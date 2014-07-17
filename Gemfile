@@ -7,6 +7,7 @@ gem 'rake'
 gem 'rack-flash3'
 gem 'bcrypt-ruby'
 gem 'carrierwave'
+gem 'mini_magick'
 
 group :development do
  gem 'sqlite3'

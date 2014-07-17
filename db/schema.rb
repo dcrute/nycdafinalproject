@@ -11,11 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140708123045) do
+ActiveRecord::Schema.define(version: 20140712013439) do
 
   create_table "notifications", force: true do |t|
     t.string  "notice"
     t.integer "user_id"
+  end
+
+  create_table "pictures", force: true do |t|
+    t.integer "user_id"
+    t.string  "avatar"
   end
 
   create_table "posts", force: true do |t|

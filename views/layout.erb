@@ -3,12 +3,12 @@
 <head>
    <title>Speak It</title>
    <link href="Styles/stylesheet.css" rel="stylesheet" type="text/css" />
-<script src=" Scripts/render.js"></script>
+	<script src=" Scripts/render.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Josefin+Sans|Shadows+Into+Light|Gloria+Hallelujah|Indie+Flower|Pacifico|Bree+Serif|Audiowide' rel='stylesheet' type='text/css'>
 </head>
 <body onload="setActive()">
 <div id="container">
-<div id="wrap">
-<div id="header">
+	<div id="header">
     <div id="head_menu" class="menu">
 <ul>
 <% my_menu = ["\"home\"", "\"login\"", "\"logout\"", "\"sign_up\"", "\"profiles\"", "\"edit_account\"", "\"delete_account\"", "\"admin_screen\""] %>
@@ -37,13 +37,13 @@
 </ul>
 </div>
 </div><!--end header-->
+<div id="wrap">
 <%=flash[:notice] if flash[:notice] %>
 <div id="feed" class="side_bar">
 <h2 style="text-align:center;">Feed</h2>
 <% if Post.first%> 
 <%posts = Post.limit(10).reverse_order%>
 <% posts.each do |post| %>
-</br>
 <% if !@current_profile%>
 </br>
 <% else%> 
