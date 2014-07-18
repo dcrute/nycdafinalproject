@@ -1,0 +1,16 @@
+<h2><%=@current_profile.username.capitalize %>'s Photos</h2>
+<div id="light" class="white_content"><img id="setImage" src=""height="400px"/></br><a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">close</a></div>
+        <div id="fade" class="black_overlay"></div>
+<form method="POST" action="/add-to-gallery" enctype="multipart/form-data">  
+<label for="file">add photo</label>
+<input type="file" name="file">
+<input type="submit"></form>
+
+<%@user = Profile.find(@current_profile.id).user %>
+
+<% if Picture.where(:user_id => @current_profile.user_id).first%> 
+<%pictures = Picture.where(:user_id => @current_profile.user_id)%>
+<% pictures.each do |picture| %>
+<%="<img id=\"#{picture.id}\"class=\"picture\" src=\"#{picture.avatar.url}\" alt=\"#{@current_profile.username.capitalize}\'s gallery pictures\" width=\"100\" height=\"100\" onclick=\"startLightbox(this.id)\">"%>
+<% end %>
+<% end %>

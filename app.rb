@@ -293,3 +293,26 @@ get '/post_profiles' do
 	create_post unless params[:post].blank?
 	redirect "/profiles"      
 end
+
+get '/gallery' do
+	@current_profile = current_profile
+	erb :home_gallery
+end
+
+get '/profile-gallery' do
+	@current_profile = current_profile
+	@user_profile = Profile.find_by_username_and_user_id params[:un],params[:ui]
+	erb :profile_gallery
+end
+
+post '/add-to-gallery' do
+	@current_profile = current_profile
+	Picture.create() unless params[:file].blank?
+	@picture = Picture.last
+	@picture.avatar = params[:file]
+	@picture.user_id = @current_profile.user_id
+	@picture.save
+	redirect "/gallery"      
+end
+
+
