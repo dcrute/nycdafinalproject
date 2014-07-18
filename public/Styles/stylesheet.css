@@ -140,12 +140,12 @@ a:hover{
 .white_content {
     display: none;
     position: absolute;
-    top: 25%;
-    left: 25%;
+    top: 10%;
+    left: 20%;
     padding: 16px;
     border: 16px solid #4477FF;
     background-color: #FFFFFF;
-    min-width: 50%;
+    min-width: 25%;
     z-index:1002;
     overflow: auto;
 }
