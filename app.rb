@@ -115,6 +115,7 @@ post '/sign-up-process' do
 				#@signup2.avatar = File.open('public/default_picture/default.jpg')
 			else
 				@signup2.avatar = params[:file]
+				Picture.create(user_id: @signup.id, avatar: params[:file])
 			end
 			@signup2.bday = params[:bday]
 			@signup2.username = params[:username].downcase
@@ -151,7 +152,8 @@ post '/edit-account-process' do
 	@user.lname = params[:lname].downcase unless params[:lname].blank?
 	@user.fname = params[:fname].downcase unless params[:fname].blank?
 	@user.save
-	@current_profile.avatar = params[:file] #unless params[:file].blank?
+	@current_profile.avatar = params[:file] unless params[:file].blank?
+	Picture.create(user_id: @user.id, avatar: params[:file])
 	@current_profile.bday = params[:bday] unless params[:bday].blank?
 	@current_profile.password = params[:password] unless params[:password].blank?
 	@current_profile.hometown = params[:hometown].downcase unless params[:hometown].blank?
