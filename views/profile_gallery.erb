@@ -1,5 +1,5 @@
 <h2><%=@user_profile.username.capitalize %>'s Photos</h2>
-<div id="light" class="white_content"><img id="setImage" src="" width="400px"/></br><a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">close</a></div>
+<div id="light" class="white_content"><img id="setImage" src="" height="400px"/></br><a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">close</a></div>
         <div id="fade" class="black_overlay"></div>
 <a href="/<%="profile?un=#{@user_profile.username}&ui=#{@user_profile.user_id}"%>">Back to Profile</a></br>
 <%@user = Profile.find(@user_profile.id).user %>
@@ -7,7 +7,7 @@
 <% if Picture.where(:user_id => @user_profile.user_id).first%> 
 <%pictures = Picture.where(:user_id => @user_profile.user_id)%>
 <% pictures.each do |picture| %>
-<%="<img id=\"#{picture.id}\"class=\"picture\" src=\"#{picture.avatar.url}\" alt=\"#{@user_profile.username.capitalize}\'s gallery pictures\" width=\"150px\" onclick=\"startLightbox(this.id)\">"%>
+<%="<img id=\"#{picture.id}\"class=\"picture\" src=\"#{picture.avatar.url}\" alt=\"#{@user_profile.username.capitalize}\'s gallery pictures\" height=\"150px\" onclick=\"startLightbox(this.id)\">"%>
 <% end %>
 </br>
 <a href="/<%="profile?un=#{@user_profile.username}&ui=#{@user_profile.user_id}"%>">Back to Profile</a>
