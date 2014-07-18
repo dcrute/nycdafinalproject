@@ -1,8 +1,8 @@
 <h2>My Profile</h2>
 
 <form method="get" action="/post">
-<input type="text" class="post" name="post" pattern="(?:([\W\w])){1,150}" placeholder="What's on your mind???" autofocus>   
-<input type="submit"></form>
+<input type="text" class="post" name="post" pattern="(?:([\W\w])){1,150}" placeholder="What you got to say???" autofocus>   
+<input type="submit" value="speak!"></form>
 </br>
 
 <%@user = Profile.find(@current_profile.id).user %>

@@ -12,15 +12,15 @@ background-color: #2222ff;
 #header {	
 	position: fixed;
 	width: 100%;
+	min-height:100px;
 	top: 0px;
 	left: 0px;
 	background-color: #000000;
 }
 
 #wrap{
-
-	width:950px;
-	margin:100px auto 25px auto;
+	width:1100px;
+	margin:175px auto 25px auto;
 	background-color: #ddddff;
 	border-radius: 25px;
 	padding: 10px;
@@ -29,7 +29,7 @@ background-color: #2222ff;
 }
 #inside_content{
 	padding: 10px;
-	width:615px;	
+	width:715px;	
 	min-height: 300px;
 	margin: 10px;
 	float:left;
@@ -39,8 +39,8 @@ background-color: #2222ff;
 }
 
 .side_bar{
-	width:285px;
-	height:100px
+	width:300px;
+	min-height:100px;
 	padding: 10px;
 	font-size: 18px;
 	margin-top:10px;
@@ -173,11 +173,29 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #head_menu {	
-	margin:0 auto;
+	margin-top: 15px;
 	max-width: 800px;
 	padding:0;
+	float:left;
 }
+
+#logo{
+	width:80px;
+	height:100px;
+	margin-right:10px;
+	background-image: url("/images/cruteCrestPlainColorSmall.jpg");
+	background-size:80px;
+	background-repeat: no-repeat;
+	background-position: top left;
+	float:left;
+}
+
 #head_menu:after {
+content:'';
+display:block;
+clear:both;
+}
+#header:after {
 content:'';
 display:block;
 clear:both;
