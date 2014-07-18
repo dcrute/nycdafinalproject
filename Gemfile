@@ -11,6 +11,7 @@ gem 'mini_magick'
 
 group :development do
  gem 'sqlite3'
+ gem 'shotgun'
 end
 
 group :production do

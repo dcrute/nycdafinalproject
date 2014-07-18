@@ -2,7 +2,7 @@
 <html>
 <head>
    <title>Cruté Speaks</title>
-   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+   <link rel="shortcut icon" href="/favicon.ico"/>
    <link href="Styles/stylesheet.css" rel="stylesheet" type="text/css" />
 	<script src=" Scripts/render.js"></script>
 	<link href='http://fonts.googleapis.com/css?family=Josefin+Sans|Shadows+Into+Light|Gloria+Hallelujah|Indie+Flower|Pacifico|Bree+Serif|Audiowide' rel='stylesheet' type='text/css'>
@@ -39,7 +39,6 @@
 </div>
 </div><!--end header-->
 <div id="wrap">
-<%=flash[:notice] if flash[:notice] %>
 <div id="feed" class="side_bar">
 <h2 style="text-align:center;">Feed</h2>
 <% if Post.first%> 
@@ -70,6 +69,7 @@
 </br>
 </div><!--End feed--!>
 <div id="inside_content">
+<%=flash[:notice] if flash[:notice] %>
 <%= yield %>
 </div><!--End inside_content--!>
 

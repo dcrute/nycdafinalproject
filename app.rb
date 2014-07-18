@@ -152,8 +152,12 @@ post '/edit-account-process' do
 	@user.lname = params[:lname].downcase unless params[:lname].blank?
 	@user.fname = params[:fname].downcase unless params[:fname].blank?
 	@user.save
-	@current_profile.avatar = params[:file] unless params[:file].blank?
-	Picture.create(user_id: @user.id, avatar: params[:file])
+	if params[:file].blank?
+		#do nothing
+	else
+		@current_profile.avatar = params[:file]
+		Picture.create(user_id: @user.id, avatar: params[:file])
+	end
 	@current_profile.bday = params[:bday] unless params[:bday].blank?
 	@current_profile.password = params[:password] unless params[:password].blank?
 	@current_profile.hometown = params[:hometown].downcase unless params[:hometown].blank?
@@ -315,6 +319,17 @@ post '/add-to-gallery' do
 	@picture.user_id = @current_profile.user_id
 	@picture.save
 	redirect "/gallery"      
+end
+
+get '/delete-photo' do
+	@current_profile = current_profile
+	picture = Picture.find(params[:id])
+	if @current_profile.avatar.url == picture.avatar.url
+		flash[:notice] = "You can delete a photo that is currently your profile pic!"
+	else
+		picture.destroy
+	end		
+	redirect '/gallery'
 end
 
 

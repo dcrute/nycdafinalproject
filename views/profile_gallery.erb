@@ -7,7 +7,7 @@
 <% if Picture.where(:user_id => @user_profile.user_id).first%> 
 <%pictures = Picture.where(:user_id => @user_profile.user_id)%>
 <% pictures.each do |picture| %>
-<%="<img id=\"#{picture.id}\"class=\"picture\" src=\"#{picture.avatar.url}\" alt=\"#{@user_profile.username.capitalize}\'s gallery pictures\" height=\"150px\" onclick=\"startLightbox(this.id)\">"%>
+<%="<img id=\"#{picture.id}\"class=\"picture\" src=\"#{picture.avatar.url}\" alt=\"#{@user_profile.username.capitalize}\'s gallery pictures\" height=\"150px\" onclick=\"startLightbox(this.id)\">&nbsp;"%>
 <% end %>
 </br>
 <a href="/<%="profile?un=#{@user_profile.username}&ui=#{@user_profile.user_id}"%>">Back to Profile</a>

@@ -12,10 +12,15 @@ document.getElementById("JavaScript2").className = "active";
 function startLightbox(id)
  {
     	var imageName = document.getElementById(id).src;
+    	var imageAlt = document.getElementById(id).alt;
     	document.getElementById('light').style.display='block';
     	document.getElementById('fade').style.display='block';
     	var setimage = document.getElementById('setImage');
+		var setlink = document.getElementById('setLink');
+    	
     	setimage.src = imageName;
+    	string1 = "/delete-photo?id="
+    	setlink.href = string1.concat(imageAlt);
  }
 
  function startPostBox()
