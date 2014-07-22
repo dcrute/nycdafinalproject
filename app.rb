@@ -13,11 +13,10 @@ require 'fog'
 CarrierWave.configure do |config|
   config.fog_credentials = {
     :provider               => 'AWS',                        # required
-    :aws_access_key_id      => ENV[:aws_access_key_id]'AKIAILMY5MJ52JQMU4IA',                        # required
-    :aws_secret_access_key  => ENV[:aws_secret_access_key]'tUegifcujQuu9EGmceKhoCKqM5s+THRsqmVRSmzM',                        # required
-    #:host                   => 's3.example.com',             # optional, defaults to nil
-    #:endpoint               => 'https://s3-us-west-2.amazonaws.com:8080' # optional, defaults to nil
+    :aws_access_key_id      => ENV['S3_KEY'],                        # required
+    :aws_secret_access_key  => ENV['S3_SECRET_KEY'],                        # required
   }
+  
   config.fog_directory  = "crutespeaks-assets"
   config.fog_public     = true
 end
