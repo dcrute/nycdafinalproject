@@ -8,11 +8,13 @@ require 'carrierwave'
 require 'carrierwave/orm/activerecord'
 require 'fog'
 
+	# 'AKIAILMY5MJ52JQMU4IA'                   
+	# 'tUegifcujQuu9EGmceKhoCKqM5s+THRsqmVRSmzM'
 CarrierWave.configure do |config|
   config.fog_credentials = {
     :provider               => 'AWS',                        # required
-    :aws_access_key_id      => 'AKIAILMY5MJ52JQMU4IA',                        # required
-    :aws_secret_access_key  => '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',                        # required
+    :aws_access_key_id      => ENV[:aws_access_key_id]'AKIAILMY5MJ52JQMU4IA',                        # required
+    :aws_secret_access_key  => ENV[:aws_secret_access_key]'tUegifcujQuu9EGmceKhoCKqM5s+THRsqmVRSmzM',                        # required
     #:host                   => 's3.example.com',             # optional, defaults to nil
     #:endpoint               => 'https://s3-us-west-2.amazonaws.com:8080' # optional, defaults to nil
   }
