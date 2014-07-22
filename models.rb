@@ -1,6 +1,6 @@
 class AvatarUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
-  storage :file
+  storage :fog
   process :resize_to_fit => [1000, 1000]
 
   # version :thumb do
@@ -16,7 +16,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   end
   
   def store_dir
-    'profile_pictures'
+    "development/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
 end

@@ -6,15 +6,27 @@ require 'bcrypt'
 require 'date'
 require 'carrierwave'
 require 'carrierwave/orm/activerecord'
+require 'fog'
 
-use Rack::Session::Cookie, :key => 'rack.session', :expire_after => 7200, :secret => 'speak_it'
+CarrierWave.configure do |config|
+  config.fog_credentials = {
+    :provider               => 'AWS',                        # required
+    :aws_access_key_id      => 'AKIAILMY5MJ52JQMU4IA',                        # required
+    :aws_secret_access_key  => 'tUegifcujQuu9EGmceKhoCKqM5s+THRsqmVRSmzM',                        # required
+    #:host                   => 's3.example.com',             # optional, defaults to nil
+    #:endpoint               => 'https://s3-us-west-2.amazonaws.com:8080' # optional, defaults to nil
+  }
+  config.fog_directory  = "crutespeaks-assets"
+  config.fog_public     = true
+end
+
 use Rack::Flash, :sweep => true
 
 configure(:development) {set :database, "sqlite3:exampledb.sqlite3"}
 
 require './models'
 
-
+set :logging, true
 set :sessions, true
 def current_profile   
 		if session[:user_id]    
@@ -331,5 +343,4 @@ get '/delete-photo' do
 	end		
 	redirect '/gallery'
 end
-
 
