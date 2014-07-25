@@ -13,8 +13,8 @@
     <div id="head_menu" class="menu">
     	<!-- <img src="/images/cruteCrestPlainColorSmall.jpg" alt="Cruté Family Crest" height="100px"> -->
 <ul>
-<% my_menu = ["\"home\"", "\"login\"", "\"logout\"", "\"sign_up\"", "\"events\"", "\"profiles\"", "\"edit_account\"", "\"delete_account\"", "\"admin_screen\""] %>
-<% my_descriptions = ["Home", "Login", "Logout", "Sign-up", "Events", "Profiles", "Edit Account", "Delete Account", "Admin Dashboard"] %> 
+<% my_menu = ["\"home\"", "\"login\"", "\"logout\"", "\"sign_up\"", "\"profiles\"", "\"edit_account\"", "\"delete_account\"", "\"admin_screen\""] %>
+<% my_descriptions = ["Home", "Login", "Logout", "Sign-up", "Profiles", "Edit Account", "Delete Account", "Admin Dashboard"] %> 
 <% count = 0 %> 
 <% my_menu.each do |link| %>   
 
@@ -39,8 +39,8 @@
 </ul>
 </div>
 </div><!--end header-->
-<div id="wrap">
-<div id="feed" class="side_bar">
+<div id="wrap_login">
+<div id="feed" class="side_bar_login">
 
 <% if !@current_profile%>
 <h2 style="text-align:center;">Welcome Family</h2>
@@ -75,7 +75,7 @@
 <% end %>
 </br>
 </div><!--End feed-->
-<div id="inside_content">
+<div id="login_screen">
 <%=flash[:notice] if flash[:notice] %>
 <%= yield %>
 </div><!--End inside_content-->

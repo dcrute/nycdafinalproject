@@ -1,16 +1,18 @@
 
 body{
-background-color: #2222ff;
+background-color: #4400cc;
 }
 
 #container {
 	width: 100%;
 	height: 100%;
-	background-color: #2222ff;
+	background-color: #4400cc;
+	color: #ffffff;
 }
 
 #header {	
 	position: fixed;
+	z-index:1000;
 	width: 100%;
 	min-height:100px;
 	top: 0px;
@@ -25,7 +27,7 @@ background-color: #2222ff;
 	border-radius: 25px;
 	padding: 10px;
 	font-size: 24px;
-	border: solid 5px #00ff00;
+	color: #000000;
 }
 #inside_content{
 	padding: 10px;
@@ -35,7 +37,8 @@ background-color: #2222ff;
 	float:left;
 	font-size: 24px;
 	border-radius: 10px;
-	background-color: #ffffff;
+	background-color: #2222aa;
+	color: #ffffff;
 }
 
 .side_bar{
@@ -50,6 +53,34 @@ background-color: #2222ff;
 	float:left;
 }
 
+.side_bar_login{
+	width:500px;
+	min-height:100px;
+	padding: 10px;
+	font-size: 18px;
+	margin-top:10px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	border-radius: 10px;
+	float:left;
+}
+
+#wrap_login{
+	width:900px;
+	margin:175px auto 25px auto;
+	background-color: #ddddff;
+	border-radius: 25px;
+	padding: 10px;
+	font-size: 24px;
+	color: #000000;
+}
+
+#wrap_login:after {
+content:'';
+display:block;
+clear:both;
+}
+
 #wrap:after {
 content:'';
 display:block;
@@ -57,6 +88,12 @@ clear:both;
 }
 
 .side_bar:after {
+content:'';
+display:block;
+clear:both;
+}
+
+.side_bar_login:after {
 content:'';
 display:block;
 clear:both;
@@ -76,24 +113,24 @@ ul{
 }
 
 .menu ul{
-	font-size: 18px;
+	font-size: 14px;
 	color: #ff0000;
 	list-style-type: none;
 }
 
 .menu li{
 	display:inline;
-	border-bottom: solid 2px #888888;
+	border-top: solid 2px #888888;
 	border-left: solid 2px #888888;
 	border-right: solid 2px #888888;
 	border-radius: 5px;
-	margin: 0px 2px;
-	padding: 2px 5px;
+	margin: 0;
+	padding: 10px 5px;
 }
 
 a{
 	font-size: 20px;
-	color: #990099;
+	color: #aaaa00;
 	text-decoration: none;
 	font-style: oblique;
 }
@@ -112,7 +149,7 @@ a:hover{
 }
 
 .menu a:hover{
-	color: #990099;
+	color: #ffffff;
 	text-decoration: underline;
 }
 
@@ -130,22 +167,22 @@ a:hover{
     height: 100%;
     background-color: black;
     z-index:1001;
-    -moz-opacity: 0.8;
-    opacity:.80;
-    filter: alpha(opacity=80);
+    -moz-opacity: 0.9;
+    opacity:0.90;
+    filter: alpha(opacity=90);
 }
         
 .white_content {
     display: none;
     position: absolute;
-    top: 10%;
-    left: 20%;
+    top: 50%;
+    left: 25%;
     padding: 16px;
-    border: 16px solid #4477FF;
-    background-color: #FFFFFF;
+    background-color: #111111;
     min-width: 25%;
     z-index:1002;
     overflow: auto;
+    opacity: 0.9;
 }
 
 input:not([type=submit]).post{
@@ -154,17 +191,34 @@ border-top: 5px solid #6666FF;
 border-radius: 10px;
 padding: 5px;
 font-size: 12px;
-width:50%%
+width:50%;
+}
+
+.white_content input:not([type=submit]){
+	width: 200px;
+}
+
+.white_content input{
+	margin:5px auto;
+	display: block;
+}
+
+.white_content a{
+	text-align:right;
+	display: block;
+	color: white;
 }
 
 .profile_pics {
-border: 2.5px ridge #0000ff;
+border: 5px ridge #444444;
 display: block;
 margin: 1px;
 }
 
 p, body{
 	font-family: 'Indie Flower', cursive;
+	margin:0;
+	padding:0;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -174,7 +228,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #head_menu {	
 	margin-top: 15px;
-	max-width: 800px;
+	max-width: 900px;
 	padding:0;
 	float:left;
 }
@@ -200,3 +254,79 @@ content:'';
 display:block;
 clear:both;
 }
+
+.form:after {
+content:'';
+display:block;
+clear:both;
+}
+
+label {
+	padding:4px;
+	width:100px;
+	display:block;
+	font-size:14px;
+	line-height:14px;
+	margin:0;
+}
+
+.label{
+	min-width:100px;
+	float:left;
+}
+
+
+input, textarea, select {
+	font-size:20px;
+}
+
+input, select{
+	height: 30px;
+}
+
+textarea{
+	height:60px;
+}
+
+:invalid + label::after { content: ' ⨉'; }
+:valid + label::after { content: ' ✓'; }
+
+
+:required + label::after{
+ 	color:#F00;
+	content: "*"; 
+}
+
+.label_login label {
+	padding:4px;
+	width:100px;
+	display:block;
+	font-size:14px;
+	line-height:14px;
+	margin:0 auto;
+}
+
+.form_login {
+	width:300px;
+	margin:0 auto;
+	padding:0;
+	text-align: center;
+	background-color: #6666AA;
+	opacity: 0.75;
+}
+.label_login {
+	margin:0 auto;
+}
+
+#login_screen{
+	padding: 10px;
+	width:300px;
+	margin-top: 50px;
+	margin-left: 10px;
+	float:left;
+	font-size: 24px;
+	border-radius: 10px;
+}
+
+#login_screen a{
+	color: #000;}

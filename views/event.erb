@@ -1,0 +1,28 @@
+<h3><%="#{@user.fname.capitalize} hosts #{@event.title.capitalize}:" %></h3>
+<%if @user.id == @current_profile.user_id%>
+<!-- do nothing except break--> </br>
+<%else%>
+<% if EventAttendee.find_by_user_id_and_event_id @current_profile.user_id, @event.id%> 
+<%="<button type=\"button\" onclick=\"location.href='/unattend?ei=#{params[:ei]}'\">unattend</button></br></br>"%>
+<% else%> 
+<%= "<button type=\"button\" onclick=\"location.href='/attend?ei=#{params[:ei]}'\">attend</button></br></br>"%>
+<% end%> 
+<%end%>
+<p>
+Where: <%=@event.location.capitalize %></br> 
+When: <%="#{@event.date_time.strftime('%b %d, %Y')}#{@event.date_time.strftime(' at %I:%M %p')}"%> </p>
+<p>
+Details: <%=@event.description%>
+</p>
+</br>
+
+<h4>Attendees</h4>
+<% if EventAttendee.where(:event_id => @event.id).first%> 
+<%attendees = EventAttendee.where(:event_id => @event.id).reverse_order%>
+<% attendees.each do |attendee|%>
+<%attending = User.find(attendee.user_id).profile%>
+	<%="<a href='/profile?un=#{attending.username}&ui=#{attending.user_id}'>#{attending.username}</a>"%>
+</br>
+<% end %>
+<% end %>
+</br>

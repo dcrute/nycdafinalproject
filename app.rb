@@ -8,33 +8,46 @@ require 'carrierwave'
 require 'carrierwave/orm/activerecord'
 require 'fog'
 
-	# 'AKIAILMY5MJ52JQMU4IA'                   
-	# 'tUegifcujQuu9EGmceKhoCKqM5s+THRsqmVRSmzM'
-CarrierWave.configure do |config|
-  config.fog_credentials = {
-    :provider               => 'AWS',                        # required
-    :aws_access_key_id      => ENV['S3_KEY'],                        # required
-    :aws_secret_access_key  => ENV['S3_SECRET_KEY'],                        # required
-  }
-  
-  config.fog_directory  = "crutespeaks-assets"
-  config.fog_public     = true
-end
+# CarrierWave.configure do |config|
+#   config.fog_credentials = {
+#     :provider               => 'AWS',                        # required
+#     :aws_access_key_id      => ENV['S3_KEY'],                        # required
+#     :aws_secret_access_key  => ENV['S3_SECRET_KEY'],                        # required
+#   }
+
+#   config.fog_directory  = "crutespeaks-assets"
+#   config.fog_public     = true
+# end
 
 use Rack::Flash, :sweep => true
-
+set :sessions, true
 configure(:development) {set :database, "sqlite3:exampledb.sqlite3"}
-
+configure(:development) {set :session_secret, 'This is a secret key'}
+configure(:production) {set :session_secret, ENV['SECRET_SESSION']}
 require './models'
 
 set :logging, true
-set :sessions, true
+
+
 def current_profile   
 		if session[:user_id]    
 			if Profile.find(session[:user_id]).blank? then redirect "/logout" else @current_profile = Profile.find(session[:user_id]) end
 		else
 			redirect "/login"
 		end
+end
+
+def check_date
+	time_now = Time.now
+	if Event.all.first
+		events = Event.all
+		events.each do |event|
+			if time_now > (event.date_time + ((60*60)*240))
+				EventAttendee.where(event_id: event.id).destroy_all
+				event.destroy
+			end
+		end
+	end
 end
 
 def create_post
@@ -58,19 +71,20 @@ get '/edit_post' do
 end
 
 get '/' do
-	@current_profile = current_profile
+	current_profile
 	redirect "/home"
 end
 
 get '/home' do
-	@current_profile = current_profile
+	current_profile
 	if !params.blank? then puts "Params are blank?" + params.inspect end
 	erb :home
 end
 
 get '/profile' do
-	@current_profile = current_profile	
+	current_profile	
 	if params.blank? then redirect "/profiles" end
+	if @current_profile.username == params[:un] then redirect "/home" end
 	@user_profile = Profile.find_by_username_and_user_id params[:un],params[:ui]
 	#puts "My current user is " + @current_profile.inspect
 	#puts "My profile is " + @user_profile.inspect
@@ -79,13 +93,12 @@ get '/profile' do
 end
 
 get '/profiles' do
-	@current_profile = current_profile	
+	current_profile	
 	erb :profiles
 end
 
 get '/login' do
-	@current_profile == nil
-	erb :login
+	erb :login , :layout => :layout_login
 end
 
 post '/login-process' do
@@ -102,7 +115,6 @@ post '/login-process' do
 end
 
 get '/sign_up' do
-	@current_profile
 	erb :sign_up
 end
 
@@ -153,12 +165,12 @@ get '/logout' do
 end
 
 get '/edit_account' do
-	@current_profile = current_profile
+	current_profile
 	erb :edit_account
 end
 
 post '/edit-account-process' do
-	@current_profile = current_profile
+	current_profile
 	# puts "\n\nmy paramaters are: #{params.inspect}\]\n\n"
 	@user = Profile.find(@current_profile.id).user
 	@user.email = params[:email].downcase unless params[:email].blank?
@@ -179,17 +191,36 @@ post '/edit-account-process' do
 	redirect "/home"      
 end
 
+post '/edit-group-process' do
+	current_profile
+	# puts "\n\nmy paramaters are: #{params.inspect}\]\n\n"
+	@group = Group.find(@current_profile.group_id)
+	@group.name = params[:name].downcase unless params[:name].blank?
+	@user.save
+	if params[:file].blank?
+		#do nothing
+	else
+		@group.avatar = params[:file]
+	end
+	@group.save  
+	flash[:notice] = "Your group has been Updated!" 
+	redirect "/admin_screen"      
+end
+
 get '/delete_account' do
-	@current_profile = current_profile
+	current_profile
 	flash[:notice] = "Are you sure you want to delete this account" 
 	erb :delete_account
 end
 
 post '/delete' do
-	@current_profile = current_profile
+	current_profile
 	@user = Profile.find(@current_profile.id).user
 	session.clear
-	Post.where(:user_id => @current_profile.user_id).destroy unless Post.where(:user_id => @current_profile.user_id).blank?
+	Post.where(:user_id => @current_profile.user_id).destroy_all unless Post.where(:user_id => @current_profile.user_id).blank?
+	UserFollow.where(:user_id => @current_profile.user_id).destroy_all unless UserFollow.where(:user_id => @current_profile.user_id).blank?
+	Event.where(:user_id => @current_profile.user_id).destroy_all unless Event.where(:user_id => @current_profile.user_id).blank?
+	EventAttendee.where(:user_id => @current_profile.user_id).destroy_all unless EventAttendee.where(:user_id => @current_profile.user_id).blank?
 	@current_profile.destroy
 	@user.destroy
 	flash[:notice] = "Your account was deleted succesffuly!" 
@@ -197,7 +228,7 @@ post '/delete' do
 end
 
 get '/follow' do
-	@current_profile = current_profile
+	current_profile
 	UserFollow.create()
 	@user_follows =  UserFollow.last
 	@user_follows.user_id = @current_profile.user_id
@@ -209,7 +240,7 @@ get '/follow' do
 end
 
 get '/unfollow' do
-	@current_profile = current_profile
+	current_profile
 	@followed_user = User.find(params[:ui])
 	flash[:notice] = "You are no longer following #{@followed_user.fname} #{@followed_user.lname}" 
 	@user_follows = UserFollow.find_by_user_id_and_user_following_id @current_profile.user_id, params[:ui]
@@ -254,13 +285,13 @@ get '/forgot_password' do
 end
 
 get '/post' do
-	@current_profile = current_profile
+	current_profile
 	create_post unless params[:post].blank?
 	redirect "/home"      
 end
 
 get '/admin_screen' do
-	@current_profile = current_profile
+	current_profile
 	if @current_profile.admin == true
 		erb :admin_screen
 	else
@@ -269,7 +300,7 @@ get '/admin_screen' do
 end
 
 get '/approve_user' do
-@current_profile = current_profile
+	current_profile
 	if @current_profile.admin == true
 		@profilein = Profile.find_by_user_id(params[:ui])
 		note = Notification.find_by_user_id @profilein.user_id
@@ -287,7 +318,7 @@ get '/approve_user' do
 end
 
 get '/reject_user' do
-@current_profile = current_profile
+	current_profile
 	if @current_profile.admin == true
 		@profilein = Profile.find_by_user_id(params[:ui])
 		@userin = User.find(@profilein.id) unless @profilein.blank?
@@ -302,30 +333,30 @@ get '/reject_user' do
 end
 
 get '/post_profile' do
-	@current_profile = current_profile
+	current_profile
 	create_post unless params[:post].blank?
 	redirect "/profile?un=#{params[:un]}&ui=#{params[:ui]}"      
 end
 
 get '/post_profiles' do
-	@current_profile = current_profile
+	current_profile
 	create_post unless params[:post].blank?
 	redirect "/profiles"      
 end
 
 get '/gallery' do
-	@current_profile = current_profile
+	current_profile
 	erb :home_gallery
 end
 
 get '/profile-gallery' do
-	@current_profile = current_profile
+	current_profile
 	@user_profile = Profile.find_by_username_and_user_id params[:un],params[:ui]
 	erb :profile_gallery
 end
 
 post '/add-to-gallery' do
-	@current_profile = current_profile
+	current_profile
 	Picture.create() unless params[:file].blank?
 	@picture = Picture.last
 	@picture.avatar = params[:file]
@@ -343,5 +374,49 @@ get '/delete-photo' do
 		picture.destroy
 	end		
 	redirect '/gallery'
+end
+
+get '/events' do
+	current_profile
+	check_date
+	erb :events	
+end
+
+post '/event-process' do
+	current_profile
+	date = "#{params[:year]}-#{params[:month]}-#{params[:day]} #{params[:hour]}:#{params[:minute]}:00"
+	if Event.find_by_title_and_date_time params[:title].downcase, date
+		flash[:notice] = "Sorry there is already an event on that date with that title." 
+	else
+		@event = Event.create(title: params[:title].downcase, location: params[:location], description: params[:description], user_id: @current_profile.user_id, date_time: date)
+		EventAttendee.create(user_id: @current_profile.user_id, event_id: @event.id)
+		flash[:notice] = "Your event was created. Hope to see you soon!" 
+	end
+	redirect "/events" 
+end
+
+get '/event' do
+	current_profile	
+	if params.blank? then redirect "/events" end
+	@event = Event.find(params[:ei])
+	@user = User.find(@event.user_id)
+	erb :event
+end
+
+get '/attend' do
+	current_profile
+	EventAttendee.create(user_id: @current_profile.user_id, event_id: params[:ei])
+	@event = Event.find(params[:ei])
+	flash[:notice] = "You are no longer attending #{@event.title} on #{@event.date_time.strftime('%b %d, %Y')}#{@event.date_time.strftime('at %I:%M %p')}" 
+	redirect "/event?ei=#{params[:ei]}"      
+end
+
+get '/unattend' do
+	current_profile
+	@event_attending= Event.find(params[:ei])
+	flash[:notice] = "You are no longer attending #{@event_attending.title} on #{@event_attending.date_time.strftime('%b %d, %Y')}#{@event_attending.date_time.strftime('at %I:%M %p')}" 
+	@attending = EventAttendee.find_by_user_id_and_event_id @current_profile.user_id, params[:ei]
+	@attending.destroy
+	redirect "/event?ei=#{params[:ei]}"      
 end
 

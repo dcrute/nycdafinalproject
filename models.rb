@@ -29,6 +29,9 @@ class User < ActiveRecord::Base
 	has_many :user_follows
 	has_many :users, through: :user_follows
   has_many :pictures
+  has_many :events
+  has_many :event_attendees
+  has_many :events, through: :event_attendees
 end
 
 class Profile < ActiveRecord::Base
@@ -61,4 +64,15 @@ end
 
 class UserFollow <ActiveRecord::Base
 	belongs_to :user
+end
+
+class Event <ActiveRecord::Base
+  belongs_to :user
+  has_many :event_attendees
+  has_many :users, through: :event_attendees
+end
+
+class EventAttendee <ActiveRecord::Base
+  belongs_to :user
+  belongs_to  :event
 end

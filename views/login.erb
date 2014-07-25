@@ -1,9 +1,16 @@
+<div class="form_login">
 <h1>Login</h1>
+<form method="POST" action="/login-process">
 
-<form method="POST" action="/login-process">  
-<label for="username">Username</label>  
-<input type="text" name="username">  
-<label for="password">Password</label>  
-<input type="password" name="password">  
-<input type="submit"></form>
-<p style="text-align:center;"><a href="/forgot_password">forgot password?</a></p>
+<div class="label_login">
+
+<input type="text" name="username" required> <label for="username">Username</label>  
+</div>
+<div class="label_login">
+
+<input type="password" name="password" required> <label for="password">Password</label>  
+</div>
+
+<input type="submit">
+<p style="text-align:center;"><a href="/forgot_password">forgot password?</a></p></form>
+</div>
