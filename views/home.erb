@@ -26,7 +26,7 @@ Member Since: <%= @user.created_at.strftime("%b %d, %Y") %>
 <% posts.each do |post| %>
 <%=post.string_data%>
 </br>
-<a href="/delete_post?pid=<%=post.id%>">delete</a>&nbsp;<a href="javascript:void(0);" onclick="startPostBox(); return false;">edit</a><div id="light" class="white_content"><a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">x</a>
+<a href="/delete_post?pid=<%=post.id%>">delete</a>&nbsp;<a href="javascript:void(0);" onclick="startPostBox(); return false;">edit</a><div id="light" class="white_content_post"><a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">x</a>
 	<form method="get" action="/edit_post">
 <input type="text" class="post" name="post" pattern="(?:([\W\w])){1,150}" value="<%=post.string_data%>" autofocus>
 <input type="hidden" name="pid" value="<%=post.id%>">  

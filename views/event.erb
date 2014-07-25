@@ -12,7 +12,7 @@
 Where: <%=@event.location.capitalize %></br> 
 When: <%="#{@event.date_time.strftime('%b %d, %Y')}#{@event.date_time.strftime(' at %I:%M %p')}"%> </p>
 <p>
-Details: <%=@event.description%>
+Details: </br><%=@event.description%>
 </p>
 </br>
 
@@ -22,7 +22,7 @@ Details: <%=@event.description%>
 <% attendees.each do |attendee|%>
 <%attending = User.find(attendee.user_id).profile%>
 	<%="<a href='/profile?un=#{attending.username}&ui=#{attending.user_id}'>#{attending.username}</a>"%>
-</br>
+&nbsp;&nbsp;
 <% end %>
 <% end %>
 </br>

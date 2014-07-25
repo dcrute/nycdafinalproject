@@ -122,9 +122,12 @@
 </br>
 <div id="events">
 <% if Event.all.first%> 
-<%events = Event.all%>
+<%events = Event.all.order(date_time: :asc)%>
 <% events.each do |event| %>
 <%="#{event.title.capitalize}: <a href='/event?ei=#{event.id}'> #{event.date_time.strftime('%b %d, %Y')}#{event.date_time.strftime(' at %I:%M %p')}</a></br>"%>
+<% if event.user_id == @current_profile.user_id %>
+	<a href="/delete_event?ei=<%=event.id%>">delete</a>
+        <%end%>
 <% end %>
 <% end %>
 </div>
