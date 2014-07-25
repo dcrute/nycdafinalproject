@@ -43,7 +43,9 @@ def check_date
 		events = Event.all
 		events.each do |event|
 			if time_now > (event.date_time + ((60*60)*240))
-				EventAttendee.where(event_id: event.id).destroy_all
+				if EventAttendee.where(event_id: event.id).first
+					EventAttendee.where(event_id: event.id).destroy_all
+				end
 				event.destroy
 			end
 		end
