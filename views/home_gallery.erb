@@ -12,6 +12,6 @@
 <% pictures.each do |picture| %>
 <%="<img id=\"#{picture.id}\"class=\"picture\" src=\"#{picture.avatar.url}\" alt=\"#{picture.id}\" height=\"150px\" onclick=\"startLightbox(this.id)\">&nbsp;"%>
 <% end %>
-<div id="light" class="white_content"><a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">x</a<img id="setImage" src="" alt="" height="400px"/></br><a id="setLink" href="">delete</a>&nbsp;&nbsp;&nbsp;></div>
+<div id="light" class="white_content"><a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">x</a><img id="setImage" src="" alt="" height="400px"/></br><a id="setLink" href="">delete</a>&nbsp;&nbsp;&nbsp;></div>
         <div id="fade" class="black_overlay"></div>
 <% end %>
