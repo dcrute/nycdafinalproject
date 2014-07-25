@@ -1,6 +1,6 @@
-class AvatarUploader < CarrierWave::Uploader::Base
+configure(:development) { class AvatarUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
-  storage :fog
+  storage :file
   process :resize_to_fit => [1000, 1000]
 
   # version :thumb do
@@ -14,13 +14,34 @@ class AvatarUploader < CarrierWave::Uploader::Base
   def extension_white_list
     %w(jpg jpeg gif png)
   end
+
+    def store_dir
+    "profile_pictures/"
+  end
+end }
+
   
-  def store_dir
-    "development/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+configure(:production) { class AvatarUploader < CarrierWave::Uploader::Base
+  include CarrierWave::MiniMagick  
+
+  process :resize_to_fit => [1000, 1000]
+  storage :fog
+  # version :thumb do
+  #   process :resize_to_fill => [125,125]
+  # end
+
+  def default_url
+    "/default_picture/default.jpg"
   end
 
-end
+  def extension_white_list
+    %w(jpg jpeg gif png)
+  end
 
+  def store_dir
+    "development/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  end 
+end }
 
 class User < ActiveRecord::Base
 	has_one :profile

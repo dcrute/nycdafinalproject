@@ -38,3 +38,9 @@
 </div>
 </div>
 <input type="submit"></form>
+
+<h1>Delete Account</h1>
+<%@user = Profile.find(@current_profile.id).user %>
+<form method="POST" action="/delete">  
+<p>Are you sure you want to <strong><em>delete</em></strong> your account <strong><em>permanately</em></strong>.</p>
+<input type="submit" value="Delete Account"></form>

@@ -1,27 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-   <title>Cruté Speaks</title>
-   <link rel="shortcut icon" href="/favicon.ico"/>
+   <title>Family Ties</title>
+   <link rel="shortcut icon" href="favicon.ico"/>
    <link href="Styles/stylesheet.css" rel="stylesheet" type="text/css" />
 	<script src=" Scripts/render.js"></script>
 	<link href='http://fonts.googleapis.com/css?family=Josefin+Sans|Shadows+Into+Light|Gloria+Hallelujah|Indie+Flower|Pacifico|Bree+Serif|Audiowide' rel='stylesheet' type='text/css'>
 </head>
 <body onload="setActive()">
 <div id="container">
-	<div id="header"><div id="logo"></div>
-    <div id="head_menu" class="menu">
+	<div id="header">
+    <div id="head_menu" class="menu"><div id="logo"></div>
     	<!-- <img src="/images/cruteCrestPlainColorSmall.jpg" alt="Cruté Family Crest" height="100px"> -->
 <ul>
-<% my_menu = ["\"home\"", "\"login\"", "\"logout\"", "\"sign_up\"", "\"events\"", "\"profiles\"", "\"edit_account\"", "\"delete_account\"", "\"admin_screen\""] %>
-<% my_descriptions = ["Home", "Login", "Logout", "Sign-up", "Events", "Profiles", "Edit Account", "Delete Account", "Admin Dashboard"] %> 
+<% my_menu = ["\"home\"", "\"login\"", "\"logout\"", "\"sign_up\"", "\"events\"", "\"profiles\"", "\"edit_account\"", "\"admin_screen\""] %>
+<% my_descriptions = ["Home", "Login", "Logout", "Sign-up", "Events", "Profiles", "Edit Account", "Admin Dashboard"] %> 
 <% count = 0 %> 
 <% my_menu.each do |link| %>   
 
 <% if @current_profile && link == "\"login\""%> 
 <% elsif !@current_profile && link == "\"logout\""%>
 <% elsif !@current_profile && link == "\"profiles\""%> 
-<% elsif !@current_profile && link == "\"delete_account\""%>
 <% elsif !@current_profile && link == "\"edit_account\""%> 
 <% elsif @current_profile && link == "\"sign_up\""%> 
 <% elsif !@current_profile && link == "\"admin_screen\""%>
@@ -40,6 +39,12 @@
 </div>
 </div><!--end header-->
 <div id="wrap">
+	<div id="seperator"></div>
+
+<div id="inside_content">
+<%=flash[:notice] if flash[:notice] %>
+<%= yield %>
+</div><!--End inside_content-->
 <div id="feed" class="side_bar">
 
 <% if !@current_profile%>
@@ -75,11 +80,6 @@
 <% end %>
 </br>
 </div><!--End feed-->
-<div id="inside_content">
-<%=flash[:notice] if flash[:notice] %>
-<%= yield %>
-</div><!--End inside_content-->
-
 </div><!--End wrap-->
 </div><!--End container-->
 

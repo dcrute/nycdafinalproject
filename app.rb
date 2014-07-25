@@ -8,7 +8,7 @@ require 'carrierwave'
 require 'carrierwave/orm/activerecord'
 require 'fog'
 
-CarrierWave.configure do |config|
+configure(:production) {CarrierWave.configure do |config|
   config.fog_credentials = {
     :provider               => 'AWS',                        # required
     :aws_access_key_id      => ENV['S3_KEY'],                        # required
@@ -17,7 +17,7 @@ CarrierWave.configure do |config|
 
   config.fog_directory  = "crutespeaks-assets"
   config.fog_public     = true
-end
+end}
 
 use Rack::Flash, :sweep => true
 set :sessions, true

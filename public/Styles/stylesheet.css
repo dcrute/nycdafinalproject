@@ -18,22 +18,34 @@ background-color: #4400cc;
 	top: 0px;
 	left: 0px;
 	background-color: #000000;
+	box-shadow: 0px 5px 50px #ffffff;
+	opacity: 0.9;
 }
 
 #wrap{
-	width:1100px;
-	margin:175px auto 25px auto;
-	background-color: #ddddff;
+	width:100%;
+	margin:10% 0 3% 0 ;
 	border-radius: 25px;
 	padding: 10px;
 	font-size: 24px;
 	color: #000000;
+	border:2px solic black;
+/*	background-color: #ddddff;
+	opacity: 0.80;*/
+	background-color: rgba(255,255,255,0.0);
 }
+
+#seperator{
+	width:100%;
+	height:1px;
+	margin-top:1%;
+}
+
 #inside_content{
 	padding: 10px;
 	width:715px;	
 	min-height: 300px;
-	margin: 10px;
+	margin: 1% 2% 2% 2%;
 	float:left;
 	font-size: 24px;
 	border-radius: 10px;
@@ -46,11 +58,12 @@ background-color: #4400cc;
 	min-height:100px;
 	padding: 10px;
 	font-size: 18px;
-	margin-top:10px;
-	margin-left: 10px;
+	margin: 1% 2% 2% 2%;
 	margin-bottom: 10px;
 	border-radius: 10px;
 	float:left;
+	background-color:#181877;
+	color: #ffffff;
 }
 
 .side_bar_login{
@@ -116,16 +129,18 @@ ul{
 	font-size: 14px;
 	color: #ff0000;
 	list-style-type: none;
+	margin:0;
+	padding:0;
+	margin-left:25%;
 }
 
 .menu li{
 	display:inline;
-	border-top: solid 2px #888888;
-	border-left: solid 2px #888888;
-	border-right: solid 2px #888888;
-	border-radius: 5px;
+	/*border-left: solid 2px #eeeeee;*/
+	border-right: solid 2px #002933;
+	/*border-radius: 5px;*/
 	margin: 0;
-	padding: 10px 5px;
+	padding: 10px 2px;
 }
 
 a{
@@ -142,7 +157,7 @@ a:hover{
 
 .menu a{
 	font-size: 24px;
-	color: #CCA300;
+	color: #00CCFF;
 	text-decoration: none;
 	font-style: normal;
 	font-family: 'Shadows Into Light', cursive;
@@ -154,7 +169,7 @@ a:hover{
 }
 
 .menu a.active{
-	color: #FFFF00;
+	color: #80E6FF;
 	text-decoration: underline;
 }
 
@@ -187,15 +202,14 @@ a:hover{
 
 .white_content_post {
     display: none;
-    position: absolute;
+    position:absolute;
     top: 50%;
-    left: 25%;
+    left:30%;
     padding: 16px;
-    background-color: #111111;
-    min-width: 25%;
+	background-color: rgba(255,255,255,0.0);
+    width: 30%;
     z-index:1002;
     overflow: auto;
-    opacity: 0.9;
 }
 
 input:not([type=submit]).post{
@@ -223,7 +237,7 @@ width:50%;
 }
 
 .white_content_post input:not([type=submit]){
-	width: 200px;
+	width: 300px;
 }
 
 .white_content_post input{
@@ -255,20 +269,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #head_menu {	
-	margin-top: 15px;
-	max-width: 900px;
+	margin:0;
+	width: 100%;
 	padding:0;
-	float:left;
 }
 
 #logo{
 	width:80px;
 	height:100px;
-	margin-right:10px;
+/*	margin-right:4px;*/
 	background-image: url("/images/cruteCrestPlainColorSmall.jpg");
 	background-size:80px;
 	background-repeat: no-repeat;
 	background-position: top left;
+	border:1px solid blue;
 	float:left;
 }
 
@@ -357,4 +371,13 @@ textarea{
 }
 
 #login_screen a{
-	color: #000;}
+	color: #000;
+}
+
+.close {
+	cursor:crosshair
+}
+
+input[type=submit]{
+	cursor:pointer
+}
