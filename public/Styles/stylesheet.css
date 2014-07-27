@@ -1,12 +1,12 @@
 
 body{
-background-color: #4400cc;
+background-color: #007AA3;
 }
 
 #container {
 	width: 100%;
 	height: 100%;
-	background-color: #4400cc;
+	background-color: #007AA3;
 	color: #ffffff;
 }
 
@@ -24,6 +24,7 @@ background-color: #4400cc;
 
 #wrap{
 	width:100%;
+	min-width: 790px;
 	margin:10% 0 3% 0 ;
 	border-radius: 25px;
 	padding: 10px;
@@ -42,14 +43,16 @@ background-color: #4400cc;
 }
 
 #inside_content{
-	padding: 10px;
+	padding: .5% 1.5%;
 	width:715px;	
 	min-height: 300px;
-	margin: 1% 2% 2% 2%;
+	margin: 1.5% 2% 2% 2%;
 	float:left;
 	font-size: 24px;
-	border-radius: 10px;
-	background-color: #2222aa;
+	border-radius: 5px;
+	background-color: #181877;
+	box-shadow: 0px 5px 75px #000000;
+	background-color: rgba(23,19,124,0.50);
 	color: #ffffff;
 }
 
@@ -58,11 +61,11 @@ background-color: #4400cc;
 	min-height:100px;
 	padding: 10px;
 	font-size: 18px;
-	margin: 1% 2% 2% 2%;
+	margin: 1.5% 2% 2% 2%;
 	margin-bottom: 10px;
 	border-radius: 10px;
 	float:left;
-	background-color:#181877;
+/*	background-color:#181877;*/
 	color: #ffffff;
 }
 
@@ -145,27 +148,27 @@ ul{
 
 a{
 	font-size: 20px;
-	color: #aaaa00;
+	color: #FF3333;
 	text-decoration: none;
 	font-style: oblique;
 }
 
 a:hover{
-	color: #CCA300;
-	text-decoration: underline;
+	color: #FF5C33;
+	text-decoration: line-through;
 }
 
 .menu a{
-	font-size: 24px;
+	font-size: 20px;
 	color: #00CCFF;
 	text-decoration: none;
 	font-style: normal;
-	font-family: 'Shadows Into Light', cursive;
+	font-family: 'Audiowide', cursive;
 }
 
 .menu a:hover{
 	color: #ffffff;
-	text-decoration: underline;
+	text-decoration: line-through;
 }
 
 .menu a.active{
@@ -213,9 +216,8 @@ a:hover{
 }
 
 input:not([type=submit]).post{
-border-left: 5px solid #6666FF;
-border-top: 5px solid #6666FF;
-border-radius: 10px;
+border: 5px solid #007AA3;
+border-radius: 3px;
 padding: 5px;
 font-size: 12px;
 width:50%;
@@ -258,13 +260,13 @@ margin: 1px;
 }
 
 p, body{
-	font-family: 'Indie Flower', cursive;
+	font-family: 'Aclonica', sans-serif;
 	margin:0;
 	padding:0;
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'Audiowide', cursive;
+	font-family: 'Acme', sans-serif;
 	margin-bottom: 5px;
 }
 
@@ -286,6 +288,11 @@ h1, h2, h3, h4, h5, h6 {
 	float:left;
 }
 
+#head_wrap{
+	max-width: 100%;
+	min-width: 400px;
+}
+
 #head_menu:after {
 content:'';
 display:block;
@@ -305,10 +312,10 @@ clear:both;
 
 label {
 	padding:4px;
-	width:100px;
+	width:100%;
 	display:block;
-	font-size:14px;
-	line-height:14px;
+	font-size:75%;
+	line-height:75%;
 	margin:0;
 }
 
