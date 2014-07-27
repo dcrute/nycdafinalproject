@@ -1,6 +1,7 @@
 configure(:development) { class AvatarUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
   storage :file
+  process :fix_if_rotation
   process :resize_to_fit => [1000, 1000]
 
   # version :thumb do
@@ -18,6 +19,14 @@ configure(:development) { class AvatarUploader < CarrierWave::Uploader::Base
     def store_dir
     "profile_pictures/"
   end
+
+  def fix_if_rotation
+    manipulate! do |img|
+      img.tap(&:auto_orient)
+    end
+  end
+
+  
 end }
 
   
