@@ -130,6 +130,7 @@ post '/sign-up-process' do
 			flash[:notice] = "That e-mail address is already in use. </br>Please use a new e-mail address." 
 			redirect "/sign_up"
 		else
+			@date = "#{params[:year]}-#{params[:month]}-#{params[:day]}"
 			User.create()
 			Profile.create()
 			@signup = User.last
@@ -144,7 +145,7 @@ post '/sign-up-process' do
 				@signup2.avatar = params[:file]
 				Picture.create(user_id: @signup.id, avatar: params[:file])
 			end
-			@signup2.bday = params[:bday]
+			@signup2.bday = @date
 			@signup2.username = params[:username].downcase
 			@signup2.password = params[:password]
 			@signup2.hometown = params[:hometown].downcase
@@ -185,7 +186,8 @@ post '/edit-account-process' do
 		@current_profile.avatar = params[:file]
 		Picture.create(user_id: @user.id, avatar: params[:file])
 	end
-	@current_profile.bday = params[:bday] unless params[:bday].blank?
+	@date = "#{params[:year]}-#{params[:month]}-#{params[:day]}" unless params[:year].blank?
+	@current_profile.bday = @date unless @date.blank?
 	@current_profile.password = params[:password] unless params[:password].blank?
 	@current_profile.hometown = params[:hometown].downcase unless params[:hometown].blank?
 	@current_profile.save  
@@ -255,7 +257,8 @@ post '/password_reset' do
 		flash[:notice] = "There is no record of an account with the e-mail address #{params[:email]}"
 		redirect "/login"
 	else
-		bday = DateTime.parse(params[:bday])
+		@date = "#{params[:year]}-#{params[:month]}-#{params[:day]}"
+		bday = DateTime.parse(@date)
 		@profile = Profile.find_by_username_and_hometown_and_bday params[:username].downcase, params[:hometown].downcase, bday
 		@user = User.find_by_email(params[:email].downcase)
 		@profile_check = Profile.find_by_user_id(@user.id)
