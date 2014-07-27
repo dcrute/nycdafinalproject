@@ -10,7 +10,7 @@
 <%end%>
 <p>
 Where: <%=@event.location.capitalize %></br> 
-When: <%="#{@event.date_time.strftime('%b %d, %Y')}#{@event.date_time.strftime(' at %I:%M %p')}"%> </p>
+When: <%="#{@event.date_time.strftime('%a %b %d, %Y')}#{@event.date_time.strftime(' at %I:%M %p')}"%> </p>
 <p>
 Details: </br><%=@event.description%>
 </p>
