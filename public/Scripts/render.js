@@ -3,10 +3,22 @@ var sPath=window.location.pathname;
 var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
 if(sPage == "home")
 document.getElementById("home").className += "active";
-else if(sPage == "sampleJavascript1")
-document.getElementById("JavaScript1").className = "active";
-else if(sPage == "sampleJavascript2")
-document.getElementById("JavaScript2").className = "active";
+else if(sPage == "gallery")
+document.getElementById("home").className = "active";
+else if(sPage == "edit_account")
+document.getElementById("edit_account").className = "active";
+else if(sPage == "profiles")
+document.getElementById("profiles").className = "active";
+else if(sPage == "profile")
+document.getElementById("profiles").className = "active";
+else if(sPage == "profile-gallery")
+document.getElementById("profiles").className = "active";
+else if(sPage == "events")
+document.getElementById("events").className = "active";
+else if(sPage == "event")
+document.getElementById("events").className = "active";
+else if(sPage == "admin_screen")
+document.getElementById("admin_screen").className = "active";
 }
 
 function startLightbox(id)
