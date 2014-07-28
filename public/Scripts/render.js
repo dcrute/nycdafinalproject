@@ -35,14 +35,14 @@ function startLightbox(id)
     	setlink.href = string1.concat(imageAlt);
  }
 
- function startPostBox()
+ function startPostBox(id)
  {
-    	document.getElementById('light').style.display='block';
+    	document.getElementById(id).style.display='block';
     	document.getElementById('fade').style.display='block';
  }
 
- function startCommentBox()
+ function startCommentBox(id)
  {
-        document.getElementById('light2').style.display='block';
+        document.getElementById(id).style.display='block';
         document.getElementById('fade').style.display='block';
  }
