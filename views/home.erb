@@ -40,7 +40,7 @@ Member Since: <%= @user.created_at.strftime("%b %d, %Y") %>
 <%end%>
 </div>
 <%end%>
-<a href="/delete_post?pid=<%=post.id%>">delete</a>&nbsp;<a href="javascript:void(0);" onclick="startPostBox("light<%=post.id%>"); return false;">edit</a>&nbsp;<a href="javascript:void(0);" onclick="startCommentBox("light2<%=post.id%>"); return false;">comment</a><div id="light<%=post.id%>" class="white_content_comment"><a class="close" href="javascript:void(0)" onclick="document.getElementById('light2<%=post.id%>').style.display='none';document.getElementById('fade').style.display='none'">x</a>
+<a href="/delete_post?pid=<%=post.id%>">delete</a>&nbsp;<a href="javascript:void(0);" onclick="startPostBox("light<%=post.id%>"); return false;">edit</a>&nbsp;<a href="javascript:void(0);" onclick="startCommentBox("light2<%=post.id%>"); return false;">comment</a><div id="light<%=post.id%>" class="white_content_comment"><a class="close" href="javascript:void(0);" onclick="document.getElementById('light2<%=post.id%>').style.display='none';document.getElementById('fade').style.display='none'">x</a>
 	<form method="get" action="/leave_comment">
 <input type="text" class="post" name="comment" pattern="(?:([\W\w])){1,150}" placeholder="Your two cents???" autofocus>
 <input type="hidden" name="pid" value="<%=post.id%>">  
