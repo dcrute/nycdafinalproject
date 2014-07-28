@@ -430,3 +430,15 @@ get '/delete_event' do
 	redirect "/events"
 end
 
+get '/leave_comment' do
+	current_profile
+	Comment.create(data: params[:comment], user_id: @current_profile.user_id, post_id: params[:pid])
+	redirect "/home"
+end
+
+get '/leave_comment_profile' do
+	current_profile
+	Comment.create(data: params[:comment], user_id: @current_profile.user_id, post_id: params[:pid])
+	redirect "/profile?un=#{params[:un]}&ui=#{params[:ui]}"
+end
+

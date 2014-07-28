@@ -21,17 +21,35 @@ Member Since: <%= @user.created_at.strftime("%b %d, %Y") %>
 <a href="/gallery">Photo Gallery</a>
 
 <h4>Posts</h4>
-<% if Post.where(:user_id => @current_profile.user_id).first%> 
+<% if Post.where(:user_id => @current_profile.user_id).first%>
+
 <%posts = Post.where(:user_id => @current_profile.user_id).reverse_order%>
 <% posts.each do |post| %>
 <%=post.string_data%>
+<%user = User.find(post.user_id).profile%>
 </br>
-<a href="/delete_post?pid=<%=post.id%>">delete</a>&nbsp;<a href="javascript:void(0);" onclick="startPostBox(); return false;">edit</a><div id="light" class="white_content_post"><a class="close" href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">x</a>
+<% if Comment.where(:post_id => post.id).first%>
+<div id="comment">
+<h6>Comments</h6>	
+<%comments = Comment.where(:post_id => post.id).limit(100).reverse_order%>
+<%comments.each do |comment| %>
+&nbsp;&nbsp;<%="#{user.username}: #{comment.data}"%>
+</br>
+<%end%>
+</div>
+<%end%>
+<a href="/delete_post?pid=<%=post.id%>">delete</a>&nbsp;<a href="javascript:void(0);" onclick="startPostBox(); return false;">edit</a>&nbsp;<a href="javascript:void(0);" onclick="startCommentBox(); return false;">comment</a><div id="light2" class="white_content_comment"><a class="close" href="javascript:void(0)" onclick="document.getElementById('light2').style.display='none';document.getElementById('fade').style.display='none'">x</a>
+	<form method="get" action="/leave_comment">
+<input type="text" class="post" name="comment" pattern="(?:([\W\w])){1,150}" placeholder="Your two cents???" autofocus>
+<input type="hidden" name="pid" value="<%=post.id%>">  
+<input type="submit" value="done?"></form>
+	</div><div id="light" class="white_content_post"><a class="close" href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">x</a>
 	<form method="get" action="/edit_post">
-<input type="text" class="post" name="post" pattern="(?:([\W\w])){1,150}" value="<%=post.string_data%>" autofocus>
+<input type="text" class="post" name="post" pattern="(?:([\W\w])){1,150}" value="<%=post.string_data%>">
 <input type="hidden" name="pid" value="<%=post.id%>">  
 <input type="submit" value="done?"></form>
 	</div>
+
         <div id="fade" class="black_overlay"></div>
 </br>
 <% end %>

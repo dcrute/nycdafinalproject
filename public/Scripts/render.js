@@ -40,3 +40,9 @@ function startLightbox(id)
     	document.getElementById('light').style.display='block';
     	document.getElementById('fade').style.display='block';
  }
+
+ function startCommentBox()
+ {
+        document.getElementById('light2').style.display='block';
+        document.getElementById('fade').style.display='block';
+ }

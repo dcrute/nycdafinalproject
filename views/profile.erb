@@ -25,7 +25,27 @@
 <%posts = Post.where(:user_id => @user_profile.user_id).limit(100).reverse_order%>
 <% posts.each do |post| %>
 <%=post.string_data%>
+<%user = User.find(post.user_id).profile%>
 </br>
+<% if Comment.where(:post_id => post.id).first%>
+<div id="comment">
+<h6>Comments</h6>
+<%comments = Comment.where(:post_id => post.id).limit(100).reverse_order%>
+<%comments.each do |comment| %>
+&nbsp;&nbsp;<%="#{user.username}: #{comment.data}"%>
+</br>
+<%end%>
+</div>
+<%end%>
+<a href="javascript:void(0);" onclick="startCommentBox(); return false;">comment</a><div id="light2" class="white_content_comment"><a class="close" href="javascript:void(0)" onclick="document.getElementById('light2').style.display='none';document.getElementById('fade').style.display='none'">x</a>
+	<form method="get" action="/leave_comment_profile">
+<input type="text" class="post" name="comment" pattern="(?:([\W\w])){1,150}" placeholder="Your two cents???" autofocus>
+<input type="hidden" name="pid" value="<%=post.id%>">
+<input type="hidden" name="un" value="<%=user.username%>">
+<input type="hidden" name="id" value="<%=user.user_id%>">  
+<input type="submit" value="done?"></form>
+	</div><div id="light" class="white_content_post"><a class="close" href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">x</a>
+	<div id="fade" class="black_overlay"></div>
 <% end %>
 <% end %>
 </br>

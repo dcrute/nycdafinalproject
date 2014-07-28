@@ -62,6 +62,7 @@ class User < ActiveRecord::Base
   has_many :events
   has_many :event_attendees
   has_many :events, through: :event_attendees
+  has_many :comments
 end
 
 class Profile < ActiveRecord::Base
@@ -81,6 +82,7 @@ end
 
 class Post < ActiveRecord::Base
 	belongs_to :user
+  has_many :comments
 end
 
 class Picture < ActiveRecord::Base
@@ -106,3 +108,9 @@ class EventAttendee <ActiveRecord::Base
   belongs_to :user
   belongs_to  :event
 end
+
+class Comment <ActiveRecord::Base
+  belongs_to :user
+  belongs_to :post
+end
+

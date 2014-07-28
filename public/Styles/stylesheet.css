@@ -215,6 +215,18 @@ a:hover{
     overflow: auto;
 }
 
+.white_content_comment {
+    display: none;
+    position:absolute;
+    top: 50%;
+    left:30%;
+    padding: 16px;
+	background-color: rgba(255,255,255,0.0);
+    width: 30%;
+    z-index:1002;
+    overflow: auto;
+}
+
 input:not([type=submit]).post{
 border: 5px solid #007AA3;
 border-radius: 3px;
@@ -248,6 +260,21 @@ width:50%;
 }
 
 .white_content_post a{
+	text-align:right;
+	display: block;
+	color: white;
+}
+
+.white_content_comment input:not([type=submit]){
+	width: 300px;
+}
+
+.white_content_comment input{
+	margin:5px auto;
+	display: block;
+}
+
+.white_content_comment a{
 	text-align:right;
 	display: block;
 	color: white;
@@ -388,3 +415,18 @@ textarea{
 input[type=submit]{
 	cursor:pointer
 }
+
+#comment {
+	border: 1px solid black;
+	width: 75%;
+	border-radius: 5px;
+	background-color: rgba(0,0,0,0.50);
+	font-size: 16px;
+}
+
+#comment h6{
+	margin:0;
+	padding:5px;
+	font-size:18px;
+}
+
