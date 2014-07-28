@@ -54,7 +54,7 @@
 <% posts.each do |post| %>
 <%user = User.find(post.user_id).profile%>
 <div class="feed">
-<%="#{user.username}: #{post.string_data}"%>
+<%="#{user.username}:</br>&nbsp;&nbsp; #{post.string_data}"%>
 </div>
 </br>
 <% end %>

@@ -33,7 +33,7 @@
 <%comments = Comment.where(:post_id => post.id).limit(100).reverse_order%>
 <%comments.each do |comment| %>
 <%user_comment = User.find(comment.user_id).profile%>
-&nbsp;&nbsp;<%="#{user_comment.username}: #{comment.data}"%>
+&nbsp;<%="#{user_comment.username}:</br>&nbsp;&nbsp;&nbsp;&nbsp;#{comment.data}"%>
 </br>
 <%end%>
 </div>
