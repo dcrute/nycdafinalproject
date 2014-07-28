@@ -37,12 +37,14 @@ function startLightbox(id)
 
  function startPostBox(id)
  {
+        id = "light"+id;
     	document.getElementById(id).style.display='block';
     	document.getElementById('fade').style.display='block';
  }
 
  function startCommentBox(id)
  {
+        id = "light"+id;
         document.getElementById(id).style.display='block';
         document.getElementById('fade').style.display='block';
  }

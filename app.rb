@@ -62,6 +62,7 @@ end
 
 get '/delete_post' do
 	Post.find(params[:pid]).destroy
+	Comment.where(post_id: params[:pid]).destroy_all
 	redirect "/home"
 end
 
