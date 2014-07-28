@@ -430,3 +430,7 @@ input[type=submit]{
 	font-size:18px;
 }
 
+.feed{
+	border-bottom:1px solid black;
+}
+

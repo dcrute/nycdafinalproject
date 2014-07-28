@@ -53,7 +53,9 @@
 <%posts = Post.limit(10).reverse_order%>
 <% posts.each do |post| %>
 <%user = User.find(post.user_id).profile%>
+<div class="feed">
 <%="#{user.username}: #{post.string_data}"%>
+</div>
 </br>
 <% end %>
 <% end %>
