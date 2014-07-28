@@ -43,10 +43,11 @@
 <input type="text" class="post" name="comment" pattern="(?:([\W\w])){1,150}" placeholder="Your two cents???" autofocus>
 <input type="hidden" name="pid" value="<%=post.id%>">
 <input type="hidden" name="un" value="<%=user.username%>">
-<input type="hidden" name="id" value="<%=user.user_id%>">  
+<input type="hidden" name="ui" value="<%=user.user_id%>">  
 <input type="submit" value="done?"></form>
 	</div>
 	<div id="fade" class="black_overlay"></div>
+</br>
 <% end %>
 <% end %>
 </br>
