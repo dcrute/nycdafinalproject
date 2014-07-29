@@ -55,7 +55,7 @@ end
 
 def check_event(event)
 	time_now = Time.now
-	if   (event > time_now) && event < ((time_now + ((60*60)*740)))
+	if   (event > time_now) && event < ((time_now + ((60*60)*336)))
 		return true
 	else
 		return false
@@ -64,7 +64,7 @@ end
 
 def check_bday(bday)
 	time_now = Time.now
-	if   (bday > time_now) && bday < ((time_now + ((60*60)*740)))
+	if   (bday > time_now) && bday < ((time_now + ((60*60)*336)))
 		return true
 	else
 		return false
