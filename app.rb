@@ -102,7 +102,7 @@ get '/profiles' do
 end
 
 get '/login' do
-	erb :login , :layout => :layout_login
+	erb :login, :layout => :layout_login
 end
 
 post '/login-process' do
@@ -158,8 +158,8 @@ post '/sign-up-process' do
 		    options = {
   				:to => @signup.email,
   				:from => "dcrute25@hotmail.com",
-  				:subject => "#{@signup2.username}'s FamilyTies Account",
-  				:body => erb(:welcome_email),
+  				:subject => "#{Welcome @signup2.username}'s to FamilyTies",
+  				:body => erb(:welcome_email, :layout => :layout_email),
  				:via => :smtp,
   				:via_options => {
    					:address => 'smtp.sendgrid.net',
@@ -337,8 +337,8 @@ get '/approve_user' do
 			options = {
   				:to => @user.email,
   				:from => "dcrute25@hotmail.com",
-  				:subject => "#{@profilein.username}'s FamilyTies Account",
-  				:body => erb(:approved_email),
+  				:subject => "#{@profilein.username} is Approved for FamilyTies",
+  				:body => erb(:approved_email, :layout => :layout_email),
  				:via => :smtp,
   				:via_options => {
    					:address => 'smtp.sendgrid.net',
