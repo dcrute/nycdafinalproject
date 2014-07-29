@@ -9,6 +9,7 @@ gem 'bcrypt-ruby'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'pony'
+gem 'fog'
 
 group :development do
  gem 'sqlite3'
@@ -17,5 +18,4 @@ end
 
 group :production do
  gem 'pg'
- gem 'fog'
 end

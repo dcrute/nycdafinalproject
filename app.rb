@@ -53,6 +53,24 @@ def check_date
 	end
 end
 
+def check_event(event)
+	time_now = Time.now
+	if   (event > time_now) && event < ((time_now + ((60*60)*740)))
+		return true
+	else
+		return false
+	end
+end
+
+def check_bday(bday)
+	time_now = Time.now
+	if   (bday > time_now) && bday < ((time_now + ((60*60)*740)))
+		return true
+	else
+		return false
+	end
+end
+
 def create_post
 	Post.create()
 	@post = Post.last
