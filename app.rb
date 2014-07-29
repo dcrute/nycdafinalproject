@@ -155,10 +155,23 @@ post '/sign-up-process' do
 			@signup2.save
 			#session[:user_id] = @signup2.id  
 			Notification.create(notice: "#{@signup.lname.capitalize}, #{@signup.fname.capitalize} is waiting to be approved.", user_id: @signup.id) 
-		 #    Pony.mail :to => @signup.email,
-   #          :from => "dcrute25@hotmail.com",
-   #          :subject => "#{@signup2.username}'s FamilyTies Account",
-   #          :body => erb(:welcome_email)
+		    options = {
+  				:to => @signup.email,
+  				:from => "dcrute25@hotmail.com",
+  				:subject => "#{@signup2.username}'s FamilyTies Account",
+  				:body => erb(:welcome_email),
+ 				:via => :smtp,
+  				:via_options => {
+   					:address => 'smtp.sendgrid.net',
+    				:port => '587',
+    				:domain => 'heroku.com',
+    				:user_name => ENV['SENDGRID_USERNAME'],
+    				:password => ENV['SENDGRID_PASSWORD'],
+    				:authentication => :plain,
+    				:enable_starttls_auto => true
+    			}
+  			}
+		    Pony.mail(options)
 			redirect "/home"
 		end    
 	end  
@@ -320,11 +333,24 @@ get '/approve_user' do
 			@profilein.save
 			note.destroy unless note.blank?
 		end
-			# @user = User.find(@profilein.user_id)
-		 #    Pony.mail :to => @user.email,
-   #          :from => "dcrute25@hotmail.com",
-   #          :subject => "#{@profilein.username}'s FamilyTies Account",
-   #          :body => erb(:approved_email)
+			@user = User.find(@profilein.user_id)
+			options = {
+  				:to => @user.email,
+  				:from => "dcrute25@hotmail.com",
+  				:subject => "#{@profilein.username}'s FamilyTies Account",
+  				:body => erb(:approved_email),
+ 				:via => :smtp,
+  				:via_options => {
+   					:address => 'smtp.sendgrid.net',
+    				:port => '587',
+    				:domain => 'heroku.com',
+    				:user_name => ENV['SENDGRID_USERNAME'],
+    				:password => ENV['SENDGRID_PASSWORD'],
+    				:authentication => :plain,
+    				:enable_starttls_auto => true
+    			}
+  			}
+		    Pony.mail(options)
 		redirect '/admin_screen'
 	else
 		redirect '/home'
