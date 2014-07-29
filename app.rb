@@ -154,7 +154,7 @@ post '/sign-up-process' do
 			@signup2.user_id = @signup.id
 			@signup2.save
 			#session[:user_id] = @signup2.id  
-			# Notification.create(notice: "#{@signup.lname.capitalize}, #{@signup.fname.capitalize} is waiting to be approved.", user_id: @signup.id) 
+			Notification.create(notice: "#{@signup.lname.capitalize}, #{@signup.fname.capitalize} is waiting to be approved.", user_id: @signup.id) 
 		 #    Pony.mail :to => @signup.email,
    #          :from => "dcrute25@hotmail.com",
    #          :subject => "#{@signup2.username}'s FamilyTies Account",
@@ -336,11 +336,11 @@ get '/reject_user' do
 	if @current_profile.admin == true
 		@profilein = Profile.find_by_user_id(params[:ui])
 		@userin = User.find(@profilein.id) unless @profilein.blank?
-		note = Notification.find_by_user_id @profilein.user_id
+		note = Notification.find_by_user_id(@userin.id) unless @userin.blank? 
 		note.destroy unless note.blank?
 		@userein.destroy unless @userin.blank?
 		@profilein.destory unless @profilein.blank?
-		erb :admin_screen
+		redirect '/admin_screen'
 	else
 		redirect '/home'
 	end   
