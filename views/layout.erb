@@ -70,12 +70,12 @@
 <% end %>
 
 <h2 style="text-align:center;">Upcoming Birthdays</h2>
-<% if Profile.all.first%> 
-<%profiles = Profile.all%>
+<% if Profile.where(approved: true).first%> 
+<%profiles = Profile.where(approved:true)%>
 <% profiles.each do |profile|%>
 	<% if check_bday(profile.bday)%>
 		<% user = User.find(profile.user_id)%>
-	<%="&nbsp;<a href='/profile?un=#{user.username}&ui=#{user.user_id}'>#{user.username}: #{profile.bday.strftime('%a, %b %d')}</a>"%>
+	<%="&nbsp;<a href='/profile?un=#{profile.username}&ui=#{profile.user_id}'>#{profile.username}: #{profile.bday.strftime('%a, %b %d')}</a>"%>
  	<% end %>
 <% end %>
 <% end %>
