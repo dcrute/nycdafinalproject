@@ -8,7 +8,7 @@ gem 'rack-flash3'
 gem 'bcrypt-ruby'
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'fog'
+gem 'pony'
 
 group :development do
  gem 'sqlite3'
@@ -17,4 +17,5 @@ end
 
 group :production do
  gem 'pg'
+ gem 'fog'
 end

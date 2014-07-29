@@ -53,6 +53,8 @@ GEM
     inflecto (0.0.2)
     ipaddress (0.8.0)
     json (1.8.1)
+    mail (2.6.1)
+      mime-types (>= 1.16, < 3)
     mime-types (2.3)
     mini_magick (3.7.0)
       subexec (~> 0.2.1)
@@ -65,6 +67,8 @@ GEM
     nokogiri (1.6.3)
       mini_portile (= 0.6.0)
     pg (0.17.1)
+    pony (1.10)
+      mail (>= 2.0)
     rack (1.5.2)
     rack-flash3 (1.0.5)
       rack
@@ -97,6 +101,7 @@ DEPENDENCIES
   fog
   mini_magick
   pg
+  pony
   rack-flash3
   rake
   shotgun

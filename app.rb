@@ -7,6 +7,7 @@ require 'date'
 require 'carrierwave'
 require 'carrierwave/orm/activerecord'
 require 'fog'
+require 'pony'
 
 configure(:production) {CarrierWave.configure do |config|
   config.fog_credentials = {
@@ -154,8 +155,10 @@ post '/sign-up-process' do
 			@signup2.save
 			#session[:user_id] = @signup2.id  
 			Notification.create(notice: "#{@signup.lname.capitalize}, #{@signup.fname.capitalize} is waiting to be approved.", user_id: @signup.id) 
-			flash[:notice] = "Welcome to the cool kids club!" 
-			flash[:alert] = "Your account should be approved for use withn 2-3 days"
+		    Pony.mail :to => @signup.email,
+            :from => "dcrute25@hotmail.com",
+            :subject => "#{@signup2.username}'s FamilyTies Account",
+            :body => erb(:welcome_email)
 			redirect "/home"
 		end    
 	end  
@@ -317,6 +320,11 @@ get '/approve_user' do
 			@profilein.save
 			note.destroy unless note.blank?
 		end
+			@user = User.find(@profilein.user_id)
+		    Pony.mail :to => @user.email,
+            :from => "dcrute25@hotmail.com",
+            :subject => "#{profilein.username}'s FamilyTies Account",
+            :body => erb(:approved_email)
 		redirect '/admin_screen'
 	else
 		redirect '/home'
