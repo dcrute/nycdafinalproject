@@ -323,7 +323,7 @@ get '/approve_user' do
 			@user = User.find(@profilein.user_id)
 		    Pony.mail :to => @user.email,
             :from => "dcrute25@hotmail.com",
-            :subject => "#{profilein.username}'s FamilyTies Account",
+            :subject => "#{@profilein.username}'s FamilyTies Account",
             :body => erb(:approved_email)
 		redirect '/admin_screen'
 	else
