@@ -1,4 +1,4 @@
-<h3><%="#{@user.fname.capitalize} hosts #{@event.title.capitalize}:" %></h3>
+<h3><%="#{@user.fname.capitalize} hosts #{@event.title.titleize}:" %></h3>
 <%if @user.id == @current_profile.user_id%>
 <!-- do nothing except break--> </br>
 <%else%>
@@ -9,7 +9,7 @@
 <% end%> 
 <%end%>
 <p>
-Where: <%=@event.location.capitalize %></br> 
+Where: <%=@event.location.titleize %></br> 
 When: <%="#{@event.date_time.strftime('%a %b %d, %Y')}#{@event.date_time.strftime(' at %I:%M %p')}"%> </p>
 <p>
 Details: </br><%=@event.description%>

@@ -110,7 +110,7 @@ post '/login-process' do
 	@userin = Profile.find_by_username(params[:username].downcase)
 	if @userin && @userin.password == params[:password] && @userin.approved == true
 		session[:user_id] = @userin.id
-		flash[:notice] = "You're in!!!"
+		flash[:notice] = "Welcome back #{@userin.username.capitalize}"
 		redirect "/home"   
 	else
 		flash[:notice] = "Oh no. Something's wrong."
