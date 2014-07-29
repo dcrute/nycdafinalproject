@@ -334,12 +334,9 @@ end
 get '/reject_user' do
 	current_profile
 	if @current_profile.admin == true
-		@profilein = Profile.find_by_user_id(params[:ui])
-		@userin = User.find(@profilein.id) unless @profilein.blank?
-		note = Notification.find_by_user_id(@userin.id) unless @userin.blank? 
-		note.destroy unless note.blank?
-		@userein.destroy unless @userin.blank?
-		@profilein.destory unless @profilein.blank?
+		Profile.find_by_user_id(params[:ui]).destroy unless params[:ui].blank?
+		User.find(params[:ui]).destroy unless params[:ui].blank?
+		Notification.find_by_user_id(params[:ui]).destroy unless params[:ui].blank?
 		redirect '/admin_screen'
 	else
 		redirect '/home'
