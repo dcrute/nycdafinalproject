@@ -68,7 +68,7 @@ def check_bday(bday)
 	bday_month = bday.strftime('%b')
 	bday_day = bday.strftime('%d')
 	bday = Time.parse("#{time_now_year}-#{bday_month}-#{bday_day}")
-	if   (bday > time_now) && bday < ((time_now + ((60*60)*336)))
+	if   ((bday + ((60*60)*48)) > time_now) && (bday < (time_now + ((60*60)*336)))
 		return true
 	else
 		return false
