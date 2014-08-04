@@ -43,7 +43,7 @@ def check_date
 	if Event.all.first
 		events = Event.all
 		events.each do |event|
-			if time_now > (event.date_time + ((60*60)*240))
+			if (time_now  > (event.date_time + ((60*60)*240))
 				if EventAttendee.where(event_id: event.id).first
 				   EventAttendee.where(event_id: event.id).destroy_all
 				end
@@ -55,7 +55,7 @@ end
 
 def check_event(event)
 	time_now = Time.now
-	if   (event > time_now) && event < ((time_now + ((60*60)*336)))
+	if   ((event+ ((60*60)*12)) > time_now) && (event < ((time_now + ((60*60)*336))))
 		return true
 	else
 		return false
