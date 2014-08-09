@@ -21,8 +21,8 @@
 <a href="/<%="profile-gallery?un=#{@user_profile.username}&ui=#{@user_profile.user_id}"%>">Photo Gallery</a>
 </br>
 <h4>Posts</h4>
-<% if Post.where(:user_id => @user_profile.user_id).first%> 
-<%posts = Post.where(:user_id => @user_profile.user_id).reverse_order%>
+<% if Post.where(:user_wall_id => @user_profile.user_id).first%> 
+<%posts = Post.where(:user_wall_id => @user_profile.user_id).reverse_order%>
 <% posts.each do |post| %>
 <%=post.string_data%>
 <%user = User.find(post.user_id).profile%>
