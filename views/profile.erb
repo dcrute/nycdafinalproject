@@ -24,6 +24,7 @@
 <% if Post.where(:user_wall_id => @user_profile.user_id).first%> 
 <%posts = Post.where(:user_wall_id => @user_profile.user_id).reverse_order%>
 <% posts.each do |post| %>
+<h6><%=User.find(post.user_id).profile.username%></h6>
 <%=post.string_data%>
 <%user = User.find(post.user_id).profile%>
 </br>
