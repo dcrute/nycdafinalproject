@@ -35,7 +35,7 @@
 <%comments = Comment.where(:post_id => post.id).reverse_order%>
 <%comments.each do |comment| %>
 <%user_comment = User.find(comment.user_id).profile%>
-&nbsp;<%="<h6>#{user_comment.username}:</h6></br>&nbsp;&nbsp;&nbsp;&nbsp;#{comment.data}"%>
+&nbsp;<%="<h6>#{user_comment.username}:</h6>&nbsp;&nbsp;&nbsp;&nbsp;#{comment.data}"%>
 </br>
 <%end%>
 </div>
