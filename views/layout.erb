@@ -50,13 +50,19 @@
 <% else%> <h2 style="text-align:center;">Feed</h2>
 <% if Post.first%>
 
-<%posts = Post.limit(10).reverse_order%>
+<%posts = Post.all.reverse_order%>
+<%count = 0%>
 <% posts.each do |post| %>
+<%if count <= 9%>
+<%if post.user_id == post.user_wall_id%>
 <%user = User.find(post.user_id).profile%>
 <div class="feed">
 <%="#{user.username}:</br>&nbsp;&nbsp; #{post.string_data}"%>
 </div>
 </br>
+<%count = count + 1 %>
+<% end %>
+<% end %>
 <% end %>
 
 <% end %><h2 style="text-align:center;">Upcoming Events</h2>
