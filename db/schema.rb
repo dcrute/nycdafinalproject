@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140727234923) do
+ActiveRecord::Schema.define(version: 20140809195110) do
 
   create_table "comments", force: true do |t|
     t.string  "data"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20140727234923) do
   create_table "posts", force: true do |t|
     t.string  "string_data"
     t.integer "user_id"
+    t.string  "user_wall_id"
   end
 
   create_table "profiles", force: true do |t|

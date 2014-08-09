@@ -22,7 +22,7 @@
 </br>
 <h4>Posts</h4>
 <% if Post.where(:user_id => @user_profile.user_id).first%> 
-<%posts = Post.where(:user_id => @user_profile.user_id).limit(100).reverse_order%>
+<%posts = Post.where(:user_id => @user_profile.user_id).reverse_order%>
 <% posts.each do |post| %>
 <%=post.string_data%>
 <%user = User.find(post.user_id).profile%>
@@ -30,7 +30,7 @@
 <% if Comment.where(:post_id => post.id).first%>
 <div id="comment">
 <h6>Comments</h6>
-<%comments = Comment.where(:post_id => post.id).limit(100).reverse_order%>
+<%comments = Comment.where(:post_id => post.id).reverse_order%>
 <%comments.each do |comment| %>
 <%user_comment = User.find(comment.user_id).profile%>
 &nbsp;<%="#{user_comment.username}:</br>&nbsp;&nbsp;&nbsp;&nbsp;#{comment.data}"%>
