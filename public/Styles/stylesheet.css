@@ -423,16 +423,24 @@ input[type=submit]{
 	background-color: rgba(0,0,0,0.50);
 	font-size: 16px;
 }
+
 h6{
 	margin:0;
 	font-style: oblique;
 	padding:0;
+	font-size:17px;
 	color: red;
 }
 #comment h5{
 	margin:0;
 	padding:5px;
-	font-size:18px;
+	font-size:20px;
+}
+
+#comment h6{
+	margin:0;
+	padding:0;
+	font-size:17px;
 }
 
 
