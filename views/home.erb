@@ -21,13 +21,14 @@ Member Since: <%= @user.created_at.strftime("%b %d, %Y") %>
 <a href="/gallery">Photo Gallery</a>
 
 <h4>Posts</h4>
-<% if Post.where(:user_id => @current_profile.user_id).first%>
 
-<%posts = Post.where(:user_id => @current_profile.user_id).reverse_order%>
+<% if Post.where(:user_wall_id => @current_profile.user_id).first%>
+<%posts = Post.where(:user_wall_id => @current_profile.user_id).reverse_order%>
 <% posts.each do |post| %>
 <%=post.string_data%>
 <%user = User.find(post.user_id).profile%>
 </br>
+
 <% if Comment.where(:post_id => post.id).first%>
 <div id="comment">
 <h6>Comments</h6>
@@ -40,7 +41,7 @@ Member Since: <%= @user.created_at.strftime("%b %d, %Y") %>
 <%end%>
 </div>
 <%end%>
-<a href="/delete_post?pid=<%=post.id%>">delete</a>&nbsp;<a id="post<%=post.id%>" href="javascript:void(0);" onclick="startPostBox(this.id); return false;">edit</a>&nbsp;<a  id="comment<%=post.id%>" href="javascript:void(0);" onclick="startCommentBox(this.id); return false;">comment</a><div id="lightcomment<%=post.id%>" class="white_content_comment"><a class="close" href="javascript:void(0);" onclick="document.getElementById('lightcomment<%=post.id%>').style.display='none';document.getElementById('fade').style.display='none'">x</a>
+<a href="/delete_post?pid=<%=post.id%>">delete</a>&nbsp;<%if post.user_id == @current_profile.user_id%><a id="post<%=post.id%>" href="javascript:void(0);" onclick="startPostBox(this.id); return false;">edit</a>&nbsp;<%end%><a  id="comment<%=post.id%>" href="javascript:void(0);" onclick="startCommentBox(this.id); return false;">comment</a><div id="lightcomment<%=post.id%>" class="white_content_comment"><a class="close" href="javascript:void(0);" onclick="document.getElementById('lightcomment<%=post.id%>').style.display='none';document.getElementById('fade').style.display='none'">x</a>
 	<form method="get" action="/leave_comment">
 <input type="text" class="post" name="comment" pattern="(?:([\W\w])){1,150}" placeholder="Your two cents???" autofocus>
 <input type="hidden" name="pid" value="<%=post.id%>">  
