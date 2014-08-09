@@ -75,14 +75,6 @@ def check_bday(bday)
 	end
 end
 
-def create_post
-	Post.create()
-	@post = Post.last
-	@post.string_data = params[:post]
-	@post.user_id = @current_profile.user_id
-	@post.save
-end
-
 get '/delete_post' do
 	Post.find(params[:pid]).destroy
 	Comment.where(post_id: params[:pid]).destroy_all
@@ -330,7 +322,7 @@ end
 
 get '/post' do
 	current_profile
-	create_post unless params[:post].blank?
+	Post.create(string_data: params[:post], user_id: @current_profile.user_id, user_wall_id: @current_profile.user_id) unless params[:post].blank?
 	redirect "/home"      
 end
 
@@ -393,15 +385,15 @@ end
 
 get '/post_profile' do
 	current_profile
-	create_post unless params[:post].blank?
+	Post.create(string_data: params[:post], user_id: @current_profile.user_id, user_wall_id: params[:ui]) unless params[:post].blank?
 	redirect "/profile?un=#{params[:un]}&ui=#{params[:ui]}"      
 end
 
-get '/post_profiles' do
-	current_profile
-	create_post unless params[:post].blank?
-	redirect "/profiles"      
-end
+# get '/post_profiles' do
+# 	current_profile
+# 	create_post unless params[:post].blank?
+# 	redirect "/profiles"      
+# end
 
 get '/gallery' do
 	current_profile
