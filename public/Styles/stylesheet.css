@@ -429,11 +429,12 @@ h6{
 	padding:0;
 	color: red;
 }
-#comment h6{
+#comment h5{
 	margin:0;
 	padding:5px;
 	font-size:18px;
 }
+
 
 .feed{
 	border-bottom:1px solid black;
