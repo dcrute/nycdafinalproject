@@ -81,6 +81,12 @@ get '/delete_post' do
 	redirect "/home"
 end
 
+get '/delete_profile_post' do
+	Post.find(params[:pid]).destroy
+	Comment.where(post_id: params[:pid]).destroy_all
+	redirect "/profile?un=#{params[:un]}&ui=#{params[:ui]}"
+end
+
 get '/edit_post' do
 	@post = Post.find(params[:pid])
 	@post.string_data = params[:post]

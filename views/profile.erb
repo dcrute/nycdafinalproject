@@ -40,7 +40,7 @@
 <%end%>
 </div>
 <%end%>
-<%if post.user_id == @current_profile.user_id%><a href="/delete_post?pid=<%=post.id%>">delete</a>&nbsp;<%end%><a id="comment<%=post.id%>" href="javascript:void(0);" onclick="startCommentBox(this.id); return false;">comment</a><div id="lightcomment<%=post.id%>" class="white_content_comment"><a class="close" href="javascript:void(0);" onclick="document.getElementById('lightcomment<%=post.id%>').style.display='none';document.getElementById('fade').style.display='none'">x</a>
+<%if post.user_id == @current_profile.user_id%><a href="/delete_profile_post?pid=<%=post.id%>&amp;un=<%=user.username%>&amp;ui=<%=user.user_id%>">delete</a>&nbsp;<%end%><a id="comment<%=post.id%>" href="javascript:void(0);" onclick="startCommentBox(this.id); return false;">comment</a><div id="lightcomment<%=post.id%>" class="white_content_comment"><a class="close" href="javascript:void(0);" onclick="document.getElementById('lightcomment<%=post.id%>').style.display='none';document.getElementById('fade').style.display='none'">x</a>
 	<form method="get" action="/leave_comment_profile">
 <input type="text" class="post" name="comment" pattern="(?:([\W\w])){1,150}" placeholder="Your two cents???" autofocus>
 <input type="hidden" name="pid" value="<%=post.id%>">
