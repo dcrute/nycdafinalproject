@@ -154,8 +154,8 @@ post '/sign-up-process' do
 		else
 			@date = "#{params[:year]}-#{params[:month]}-#{params[:day]}"
 			User.create(email: params[:email].downcase, lname: params[:lname].downcase, fname: params[:fname].downcase)
-			Profile.create(bday: @date, username: params[:username].downcase, password: params[:password], hometown: params[:hometown].downcase, user_id: @signup.id)
 			@signup = User.find_by_email_and_lname_and_fname(params[:email].downcase, params[:lname].downcase, fname: params[:fname].downcase)
+			Profile.create(bday: @date, username: params[:username].downcase, password: params[:password], hometown: params[:hometown].downcase, user_id: @signup.id)
 			@signup2 = Profile.find_by_username_and_user_id(params[:username].downcase, @signup.id)
 			if params[:file].blank?
 				#@signup2.avatar = File.open('public/default_picture/default.jpg')
