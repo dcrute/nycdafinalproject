@@ -169,7 +169,7 @@ post '/sign-up-process' do
 		    options = {
   				:to => @signup.email,
   				:from => "dcrute25@hotmail.com",
-  				:subject => "#{Welcome @signup2.username}'s to FamilyTies",
+  				:subject => "Welcome #{@signup2.username}'s to FamilyTies",
   				:body => erb(:welcome_email, :layout => :layout_email),
  				:via => :smtp,
   				:via_options => {
@@ -348,7 +348,7 @@ get '/approve_user' do
 			options = {
   				:to => @user.email,
   				:from => "dcrute25@hotmail.com",
-  				:subject => "#{@profilein.username} is Approved for FamilyTies",
+  				:subject => "#{@profilein.username.capitalize} is Approved for FamilyTies",
   				:body => erb(:approved_email, :layout => :layout_email),
  				:via => :smtp,
   				:via_options => {
