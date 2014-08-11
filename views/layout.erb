@@ -27,7 +27,7 @@
 <% elsif !@current_profile && link == "\"admin_screen\""%>
 	<%if @current_profile.blank? %>
 	<%else%>
-		<%if !@current_profile.admin == false%>
+		<%if @current_profile.admin == true%>
 			<%="<b><li><a href=#{link} id=#{link} class=\"\">#{my_descriptions[count]}</a></li></b>"%>
 		<%end%>
 	<%end%>
