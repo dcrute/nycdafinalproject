@@ -25,9 +25,9 @@
 <% elsif !@current_profile && link == "\"edit_account\""%> 
 <% elsif @current_profile && link == "\"sign_up\""%> 
 <% elsif !@current_profile && link == "\"admin_screen\""%>
-	<%if !@current_profile.blank? && @current_profile.admin != true%>
+<!-- 	<%if !@current_profile.blank? && @current_profile.admin != true%>
 		<%="<b><li><a href=#{link} id=#{link} class=\"\">#{my_descriptions[count]}</a></li></b>"%>
-	<%end%>
+	<%end%> -->
 <% else %> 
 <%= "<b><li><a href=#{link} id=#{link} class=\"\">#{my_descriptions[count]}</a></li></b>"%>
 <% end %>
