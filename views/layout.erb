@@ -14,8 +14,8 @@
     <div id="head_menu" class="menu"><div id="logo"></div>
     	<!-- <img src="/images/cruteCrestPlainColorSmall.jpg" alt="Cruté Family Crest" height="100px"> -->
 <ul>
-<% my_menu = ["\"home\"", "\"login\"", "\"logout\"", "\"sign_up\"", "\"events\"", "\"profiles\"", "\"edit_account\"", "\"admin_screen\""] %>
-<% my_descriptions = ["Home", "Login", "Logout", "Sign-up", "Events", "Profiles", "Edit Account", "Admin Dashboard"] %> 
+<% my_menu = ["\"home\"", "\"login\"", "\"logout\"", "\"sign_up\"", "\"events\"", "\"profiles\"", "\"edit_account\""] %>
+<% my_descriptions = ["Home", "Login", "Logout", "Sign-up", "Events", "Profiles", "Edit Account"] %> 
 <% count = 0 %> 
 <% my_menu.each do |link| %>   
 
@@ -24,11 +24,6 @@
 <% elsif !@current_profile && link == "\"profiles\""%> 
 <% elsif !@current_profile && link == "\"edit_account\""%> 
 <% elsif @current_profile && link == "\"sign_up\""%> 
-<% elsif !@current_profile && link == "\"admin_screen\""%>
-<% elsif @current_profile && link == "\"admin_screen\""%>
-	<%if !@current_profile.blank? && @current_profile.admin != true%>
-		<%="<b><li><a href=#{link} id=#{link} class=\"\">#{my_descriptions[count]}</a></li></b>"%>
-	<%end%>
 <% else %> 
 <%= "<b><li><a href=#{link} id=#{link} class=\"\">#{my_descriptions[count]}</a></li></b>"%>
 <% end %>
