@@ -323,7 +323,7 @@ get '/post' do
 	redirect "/home"      
 end
 
-get '/admin_screen' do
+get '/admin' do
 	current_profile
 	if @current_profile.admin == true
 		erb :admin_screen
@@ -362,7 +362,7 @@ get '/approve_user' do
     			}
   			}
 		    Pony.mail(options)
-		redirect '/admin_screen'
+		redirect '/admin'
 	else
 		redirect '/home'
 	end   
@@ -374,7 +374,7 @@ get '/reject_user' do
 		Profile.find_by_user_id(params[:ui]).destroy unless params[:ui].blank?
 		User.find(params[:ui]).destroy unless params[:ui].blank?
 		Notification.find_by_user_id(params[:ui]).destroy unless params[:ui].blank?
-		redirect '/admin_screen'
+		redirect '/admin'
 	else
 		redirect '/home'
 	end   
