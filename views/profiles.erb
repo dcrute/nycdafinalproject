@@ -5,7 +5,7 @@
 <input type="submit" value="speak!"></form> -->
 
 <% if Profile.first%> 
-<%users = Profile.all%>
+<%users = Profile.all.order(:username)%>
 <% users.each do |user| %>
 <% if user.user_id == @current_profile.user_id%>
 <% elsif user.approved == false || user.approved.nil?%>

@@ -31,7 +31,7 @@ Member Since: <%= @user.created_at.strftime("%b %d, %Y") %>
 <% if Comment.where(:post_id => post.id).first%>
 <div id="comment">
 <h5>Comments</h5>
-<%comments = Comment.where(:post_id => post.id).limit(100).reverse_order%>
+<%comments = Comment.where(:post_id => post.id)%>
 <%comments.each do |comment| %>
 <%user_comment = User.find(comment.user_id).profile%>
 <%="<h6>#{user_comment.username}:</h6>&nbsp;&nbsp;&nbsp;&nbsp;#{comment.data}"%>
