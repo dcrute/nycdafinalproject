@@ -24,7 +24,7 @@
 <% elsif !@current_profile && link == "\"profiles\""%> 
 <% elsif !@current_profile && link == "\"edit_account\""%> 
 <% elsif @current_profile && link == "\"sign_up\""%> 
-<% elsif !@current_profile && link == "\"admin_screen\""%>
+<% elsif !@current_profile && @current_profile.admin == false && link == "\"admin_screen\""%>
 	<%if @current_profile.blank? %>
 	<%else%>
 		<%if !@current_profile.admin == true%>
