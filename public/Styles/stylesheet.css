@@ -1,12 +1,12 @@
 
 body{
-background-color: #007AA3;
+background-color: #005572;
 }
 
 #container {
 	width: 100%;
 	height: 100%;
-	background-color: #007AA3;
+	background-color: #005572;
 	color: #ffffff;
 }
 
@@ -30,7 +30,7 @@ background-color: #007AA3;
 	padding: 10px;
 	font-size: 24px;
 	color: #000000;
-	border:2px solic black;
+/*	border:2px solid black;*/
 /*	background-color: #ddddff;
 	opacity: 0.80;*/
 	background-color: rgba(255,255,255,0.0);
