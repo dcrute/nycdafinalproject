@@ -447,6 +447,47 @@ h6{
 .feed{
 	border-bottom:1px solid black;
 }
+.Links {
+padding: 0;
+margin: 0;
+height: 30px;
+}
+
+.Links li {
+float: left;
+min-height: 30px;
+margin-top:4px;
+padding:5px;
+list-style: none;
+}
+ 
+.Links li a {
+display: inline;
+min-width: 100px;
+min-height: 30px;
+margin:0;
+text-align: center;
+text-decoration: none;
+}
 
 
+.Links div {
+position: absolute;
+min-height: 30px;
+background-color: #222222;
+visibility: hidden;
+}
 
+.Links div a {
+display: block;
+min-width: 100px;
+min-height: 30px;
+background-color: #222222;
+text-align: left;
+padding:0 3px;
+text-decoration: none;
+}
+
+.Links div a:hover {
+min-height: 30px;
+}

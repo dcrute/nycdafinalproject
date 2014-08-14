@@ -63,6 +63,7 @@ class User < ActiveRecord::Base
   has_many :event_attendees
   has_many :events, through: :event_attendees
   has_many :comments
+  has_many :alerts
 end
 
 class Profile < ActiveRecord::Base
@@ -82,6 +83,7 @@ end
 
 class Post < ActiveRecord::Base
 	belongs_to :user
+  has_many :alerts
   has_many :comments
 end
 
@@ -92,6 +94,11 @@ end
 
 class Notification < ActiveRecord::Base
   belongs_to :user
+end
+
+class Alert < ActiveRecord::Base
+  belongs_to :user
+  belongs_to :post
 end
 
 class UserFollow <ActiveRecord::Base

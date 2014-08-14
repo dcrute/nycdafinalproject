@@ -4,34 +4,30 @@
    <title>Family Ties</title>
    <link rel="shortcut icon" href="favicon.ico"/>
    <link href="Styles/stylesheet.css" rel="stylesheet" type="text/css" />
-	<script src=" Scripts/render.js"></script>
+	<script type="text/javascript" src=" Scripts/render.js"></script>
+	<script type="text/javascript" src="Scripts/menu.js"></script>
 	<link href='http://fonts.googleapis.com/css?family=Acme|Shadows+Into+Light|Audiowide|Aclonica' rel='stylesheet' type='text/css'>
 </head>
 <body onload="setActive()">
 <div id="container">
 	<div id="header">
-		<div id="head_wrap">
-    <div id="head_menu" class="menu"><div id="logo"></div>
-    	<!-- <img src="/images/cruteCrestPlainColorSmall.jpg" alt="Cruté Family Crest" height="100px"> -->
-<ul>
-<% my_menu = ["\"home\"", "\"login\"", "\"logout\"", "\"sign_up\"", "\"events\"", "\"profiles\"", "\"edit_account\""] %>
-<% my_descriptions = ["Home", "Login", "Logout", "Sign-up", "Events", "Profiles", "Edit Account"] %> 
-<% count = 0 %> 
-<% my_menu.each do |link| %>   
-
-<% if @current_profile && link == "\"login\""%> 
-<% elsif !@current_profile && link == "\"logout\""%>
-<% elsif !@current_profile && link == "\"profiles\""%> 
-<% elsif !@current_profile && link == "\"edit_account\""%> 
-<% elsif @current_profile && link == "\"sign_up\""%> 
-<% else %> 
-<%= "<b><li><a href=#{link} id=#{link} class=\"\">#{my_descriptions[count]}</a></li></b>"%>
-<% end %>
-<% count+=1 %>
-<% end %>
-</ul>
-</div>
-</div>
+<div id="head_wrap">
+<div id="head_menu" class="menu"><div id="logo"></div>
+	  <!-- <img src="/images/cruteCrestPlainColorSmall.jpg" alt="Cruté Family Crest" height="100px"> -->
+	 <ul class="Links">
+<li><a id="home" href="/home" onmouseover="show('m1', this.id)">Home</a></li>
+<li><a id="logout" href="/logout" onmouseover="show('m2', this.id)">Logout</a></li>
+<li><a id="events" href="/events" onmouseover="show('m3', this.id)">Events</a></li>
+<li><a id="profiles" href="/profiles" onmouseover="show('m4', this.id)">Profiles</a></li>
+<li><a id="edit_account" href="/edit_account" onmouseover="show('m5', this.id)">Account</a>
+		<div id="m5" onmouseover="show_div('m5')">
+		<a href="/edit_account">Edit Account</a>
+        <a href="/delete_account">Delete Account</a>
+        <%if @current_profile.admin == true %> <a href="/admin">Admin Dashboard</a> <%end%>
+      </div></li>
+  </ul>
+    </div><!--head_menu-->
+  </div><!--head_wrap-->
 </div><!--end header-->
 <div id="wrap">
 <!-- 	<div id="seperator"></div> -->
