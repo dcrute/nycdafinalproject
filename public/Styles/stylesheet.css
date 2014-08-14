@@ -424,7 +424,7 @@ input[type=submit]{
 	font-size: 16px;
 }
 
-h6{
+h6, h6 a, h6 a:hover{
 	margin:0;
 	font-style: oblique;
 	padding:0;
