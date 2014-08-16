@@ -43,7 +43,7 @@
 <%if post.user_id == post.user_wall_id%>
 <%user = User.find(post.user_id).profile%>
 <div class="feed">
-<%="<a href='/profile?un=#{user.username}&ui=#{user.user_id}'>#{user.username}</a>:</br>&nbsp;&nbsp; #{post.string_data}"%>
+<%="<a href='/profile?un=#{user.username}&ui=#{user.user_id}'>#{user.username}:</a></br>&nbsp;&nbsp; #{post.string_data}"%>
 </div>
 </br>
 <%count = count + 1 %>
