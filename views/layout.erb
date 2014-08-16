@@ -15,12 +15,12 @@
 <div id="head_menu" class="menu"><div id="logo"></div>
 	  <!-- <img src="/images/cruteCrestPlainColorSmall.jpg" alt="Cruté Family Crest" height="100px"> -->
 	 <ul class="Links">
-<li><a id="home" href="/home" onmouseover="show('m1', this.id)">Home</a></li>
-<li><a id="logout" href="/logout" onmouseover="show('m2', this.id)">Logout</a></li>
-<li><a id="events" href="/events" onmouseover="show('m3', this.id)">Events</a></li>
-<li><a id="profiles" href="/profiles" onmouseover="show('m4', this.id)">Profiles</a></li>
-<li><a id="edit_account" href="/edit_account" onmouseover="show('m5', this.id)">Account</a>
-		<div id="m5" onmouseover="show_div('m5')">
+<li><a id="home" href="/home" onmouseover="show('m1', this.id)" onmouseout="hide()">Home</a></li>
+<li><a id="logout" href="/logout" onmouseover="show('m2', this.id)" onmouseout="hide()">Logout</a></li>
+<li><a id="events" href="/events" onmouseover="show('m3', this.id)" onmouseout="hide()">Events</a></li>
+<li><a id="profiles" href="/profiles" onmouseover="show('m4', this.id)" onmouseout="hide()">Profiles</a></li>
+<li><a id="edit_account" href="/edit_account" onmouseover="show('m5', this.id)" onmouseout="hide()">Account</a>
+		<div id="m5" onmouseover="show_div('m5')" onmouseout="hide()">
 		<a href="/edit_account">Edit Account</a>
         <a href="/delete_account">Delete Account</a>
         <%if @current_profile.admin == true %> <a href="/admin">Admin Dashboard</a> <%end%>
