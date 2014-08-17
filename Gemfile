@@ -10,6 +10,8 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'pony'
 gem 'fog'
+gem 'thin'
+gem 'em-websocket'
 
 group :development do
  gem 'sqlite3'

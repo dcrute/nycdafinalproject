@@ -8,7 +8,12 @@ require 'carrierwave'
 require 'carrierwave/orm/activerecord'
 require 'fog'
 require 'pony'
+require 'thin'
+require 'em-websocket'
+require 'sinatra/base'
 
+EM.run do
+class App < Sinatra::Base
 configure(:production) {CarrierWave.configure do |config|
   config.fog_credentials = {
     :provider               => 'AWS',                        # required
@@ -74,7 +79,6 @@ def check_bday(bday)
 		return false
 	end
 end
-
 get '/delete_post' do
 	Post.find(params[:pid]).destroy
 	Comment.where(post_id: params[:pid]).destroy_all
@@ -485,3 +489,33 @@ get '/leave_comment_profile' do
 	redirect "/profile?un=#{params[:un]}&ui=#{params[:ui]}"
 end
 
+
+get '/chat' do
+      erb :chat
+end
+
+end #End class App
+
+@clients = []
+
+  EM::WebSocket.start(:host => '0.0.0.0', :port => '3001') do |ws|
+    ws.onopen do |handshake|
+      @clients << ws
+      ws.send "Connected to #{handshake.path}."
+    end
+
+    ws.onclose do
+      ws.send "Closed."
+      @clients.delete ws
+    end
+
+    ws.onmessage do |msg|
+      puts "Received Message: #{msg}"
+      @clients.each do |socket|
+        socket.send msg
+      end
+    end
+  end
+
+  App.run! :port => 3000
+end #end EM
