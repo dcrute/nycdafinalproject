@@ -57,7 +57,7 @@
 <%events = Event.all%>
 <% events.each do |event|%>
 	<% if check_event(event.date_time)%>
-		<%="&nbsp;<a href='/event?ei=2#{event.id}''>#{event.title.titleize}: #{event.date_time.strftime('%a, %b %d')}</a>"%>
+		<%="&nbsp;<a href='/event?ei=#{event.id}''>#{event.title.titleize}: #{event.date_time.strftime('%a, %b %d')}</a>"%>
  	<% end %>
 <% end %>
 <% end %>
