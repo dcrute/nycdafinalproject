@@ -41,45 +41,10 @@
 </div><!--end header-->
 <div id="wrap_login">
 
-<div id="login_screen">
+<div id="inside_content">
 <%=flash[:notice] if flash[:notice] %>
 <%= yield %>
 </div><!--login_screen-->
-<div id="feed" class="side_bar_login">
-
-<% if !@current_profile%>
-<h2 style="text-align:center;">Welcome Family</h2>
-<p>As we all know family is important. But it can can be hard to keep in touch with one another. Social media was suppose to make that easier but alas, it gets hard and confusing. So to make things simpler, I have created a web app just for us. Enjoy and I look forward to keeping in touch with all of you!</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Darien Cruté</p>
-<% else%> <h2 style="text-align:center;">Feed</h2>
-<% if Post.first%> 
-<%posts = Post.limit(10).reverse_order%>
-<% posts.each do |post| %>
-<%user = User.find(post.user_id).profile%>
-<%="#{user.username}: #{post.string_data}"%>
-</br>
-<% end %>
-<% end %>
-<h2 style="text-align:center;">Following</h2>
-<% if UserFollow.where(:user_id => @current_profile.user_id).first%> 
-<%followers = UserFollow.where(:user_id => @current_profile.user_id)%>
-<% followers.each do |following| %>
-<% user = User.find(following.user_following_id).profile%>
-<%=" &nbsp;<a href='/profile?un=#{user.username}&ui=#{user.user_id}'>#{user.username}</a>"%>
-
-<% end %>
-<% end %>
-<h2 style="text-align:center;">Followers</h2>
-<% if UserFollow.where(:user_following_id => @current_profile.user_id).first%> 
-<%followers = UserFollow.where(:user_following_id => @current_profile.user_id)%>
-<% followers.each do |following| %>
-<% user = User.find(following.user_id).profile%>
-<%="&nbsp;<a href='/profile?un=#{user.username}&ui=#{user.user_id}'>#{user.username}</a>"%>
- 
-<% end %>
-<% end %>
-<% end %>
-</br>
-</div><!--End feed-->
 </div><!--End wrap-->
 </div><!--End container-->
 
