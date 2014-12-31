@@ -315,7 +315,7 @@ end
 
 
 get '/forgot_password' do
-  erb :forgot_password
+  erb :forgot_password, :layout => :layout_forgot
 end
 
 get '/post' do
