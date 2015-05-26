@@ -139,7 +139,7 @@ post '/login-process' do
 end
 
 get '/sign_up' do
-	erb :sign_up
+	erb :sign_up, :layout => :layout_signup
 end
 
 post '/sign-up-process' do
