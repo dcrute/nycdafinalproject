@@ -23,9 +23,12 @@
 		<div id="m5" onmouseover="show_div('m5')" onmouseout="hide()">
 		<a href="/edit_account">Edit Account</a>
         <a href="/delete_account">Delete Account</a>
-        <%if @current_profile.admin.blank? || @current_profile.admin == false%>
-        <b></b>
-        <%else%> <a href="/admin">Admin Dashboard</a> <%end%>
+        <%if @current_profile.blank? %>
+		<%else%>
+			<%if !@current_profile.admin == true%>
+				<a href="/admin">Admin Dashboard</a>
+			<%end%>
+		<%end%>
       </div></li>
  <!-- <li><a id="chat" href="/chat" onmouseover="show('m6', this.id)" onmouseout="hide()">Chat</a></li> -->
   </ul>
