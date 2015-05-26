@@ -43,65 +43,7 @@
 <!-- 	<div id="seperator"></div> -->
 <div id="feed" class="side_bar">
 
-<h2 style="text-align:center;">Feed</h2>
-<% if Post.first%>
 
-<%posts = Post.all.reverse_order%>
-<%count = 0%>
-<% posts.each do |post| %>
-<%if count <= 9%>
-<%if post.user_id == post.user_wall_id%>
-<%user = User.find(post.user_id).profile%>
-<div class="feed">
-<%="<a href='/profile?un=#{user.username}&ui=#{user.user_id}'>#{user.username}:</a></br>&nbsp;&nbsp; #{post.string_data}"%>
-</div>
-</br>
-<%count = count + 1 %>
-<% end %>
-<% end %>
-<% end %>
-
-<% end %><h2 style="text-align:center;">Upcoming Events</h2>
-<% if Event.all.first%> 
-<%events = Event.all%>
-<% events.each do |event|%>
-	<% if check_event(event.date_time)%>
-		<%="&nbsp;<a href='/event?ei=#{event.id}''>#{event.title.titleize}: #{event.date_time.strftime('%a, %b %d')}</a>"%>
- 	<% end %>
-<% end %>
-<% end %>
-
-<h2 style="text-align:center;">Upcoming Birthdays</h2>
-<% if Profile.where(approved: true).first%> 
-<%profiles = Profile.where(approved:true)%>
-<% profiles.each do |profile|%>
-	<% if check_bday(profile.bday)%>
-		<% user = User.find(profile.user_id)%>
-	<%="&nbsp;<a href='/profile?un=#{profile.username}&ui=#{profile.user_id}'>#{profile.username}: #{profile.bday.strftime('%a, %b %d')}</a>"%>
- 	<% end %>
-<% end %>
-<% end %>
-
-<h2 style="text-align:center;">Following</h2>
-<% if UserFollow.where(:user_id => @current_profile.user_id).first%> 
-<%followers = UserFollow.where(:user_id => @current_profile.user_id)%>
-<% followers.each do |following| %>
-<% user = User.find(following.user_following_id).profile%>
-<%=" &nbsp;<a href='/profile?un=#{user.username}&ui=#{user.user_id}'>#{user.username}</a>"%>
-
-<% end %>
-<% end %>
-<h2 style="text-align:center;">Followers</h2>
-<% if UserFollow.where(:user_following_id => @current_profile.user_id).first%> 
-<%followers = UserFollow.where(:user_following_id => @current_profile.user_id)%>
-<% followers.each do |following| %>
-<% user = User.find(following.user_id).profile%>
-<%="&nbsp;<a href='/profile?un=#{user.username}&ui=#{user.user_id}'>#{user.username}</a>"%>
- 
-<% end %>
-<% end %>
-
-</br>
 </div><!--End feed-->
 <div id="inside_content">
 <%= yield %>
