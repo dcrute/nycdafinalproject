@@ -22,7 +22,7 @@ end}
 
 use Rack::Flash, :sweep => true
 set :sessions, true
-configure(:development) {set :database, "sqlite3:exampledb.sqlite3"}
+configure(:development) {set :database, {adapter: "sqlite3", database: "sqlite3:exampledb.sqlite3"}}
 configure(:development) {set :session_secret, 'This is a secret key'}
 configure(:production) {set :session_secret, ENV['SECRET_SESSION']}
 require './models'
