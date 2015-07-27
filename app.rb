@@ -169,7 +169,7 @@ post '/sign-up-process' do
 		    options = {
   				:to => @signup.email,
   				:from => "dcrute25@hotmail.com",
-  				:subject => "Welcome #{@signup2.username}'s to FamilyTies",
+  				:subject => "Welcome #{@signup2.username.capitalize} to FamilyTies",
   				:body => erb(:welcome_email, :layout => :layout_email),
  				:via => :smtp,
   				:via_options => {
