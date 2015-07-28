@@ -170,6 +170,7 @@ post '/sign-up-process' do
   				:to => @signup.email,
   				:from => "dcrute25@hotmail.com",
   				:subject => "Welcome #{@signup2.username.capitalize} to FamilyTies",
+  				:headers => { 'Content-Type' => 'text/html' },
   				:body => erb(:welcome_email, :layout => :layout_email),
  				:via => :smtp,
   				:via_options => {
@@ -350,6 +351,7 @@ get '/approve_user' do
   				:to => @user.email,
   				:from => "dcrute25@hotmail.com",
   				:subject => "#{@profilein.username.capitalize} is Approved for FamilyTies",
+  				:headers => { 'Content-Type' => 'text/html' },
   				:body => erb(:approved_email, :layout => :layout_email),
  				:via => :smtp,
   				:via_options => {
