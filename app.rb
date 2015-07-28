@@ -463,7 +463,7 @@ get '/attend' do
 	current_profile
 	EventAttendee.create(user_id: @current_profile.user_id, event_id: params[:ei])
 	@event = Event.find(params[:ei])
-	flash[:notice] = "You are no longer attending #{@event.title} on #{@event.date_time.strftime('%b %d, %Y')}#{@event.date_time.strftime('at %I:%M %p')}" 
+	flash[:notice] = "You are now attending #{@event.title} on #{@event.date_time.strftime('%b %d, %Y')}#{@event.date_time.strftime('at %I:%M %p')}" 
 	redirect "/event?ei=#{params[:ei]}"      
 end
 
