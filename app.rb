@@ -284,7 +284,7 @@ end
 post '/password_reset' do
 	if User.find_by_email(params[:email]).blank?
 		flash[:notice] = "There is no record of an account with the e-mail address #{params[:email]}"
-		redirect "/login"
+		redirect "/forgot_password"
 	else
 		@date = "#{params[:year]}-#{params[:month]}-#{params[:day]}"
 		bday = DateTime.parse(@date)
@@ -297,7 +297,7 @@ post '/password_reset' do
 		puts @profile_check.inspect
 		if @profile.blank?
 			flash[:notice] = "There is no record of an account with that information"
-			redirect "/login"
+			redirect "/forgot_password"
 		else
 			if @profile.approved == true
 				if @profile.username == @profile_check.username && @profile.hometown == @profile_check.hometown && @profile.bday == @profile_check.bday
