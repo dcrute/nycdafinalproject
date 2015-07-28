@@ -295,21 +295,26 @@ post '/password_reset' do
 		puts @user.inspect
 		puts @profile.inspect
 		puts @profile_check.inspect
-		if @profile.approved == true
-			if @profile.username == @profile_check.username && @profile.hometown == @profile_check.hometown && @profile.bday == @profile_check.bday
-				#random_password = Array.new(10).map { (65 + rand(58)).chr }.join
-				#@profile_check.password = random_password
-				#@profile_check.save!
-				session[:user_id] = @profile_check.id
-				flash[:notice] = "Take this time to update your password!"
-				redirect "/edit_account"
+		if @profile.blank?
+			flash[:notice] = "There is no record of an account with that information"
+			redirect "/login"
+		else
+			if @profile.approved == true
+				if @profile.username == @profile_check.username && @profile.hometown == @profile_check.hometown && @profile.bday == @profile_check.bday
+					#random_password = Array.new(10).map { (65 + rand(58)).chr }.join
+					#@profile_check.password = random_password
+					#@profile_check.save!
+					session[:user_id] = @profile_check.id
+					flash[:notice] = "Take this time to update your password!"
+					redirect "/edit_account"
+				else
+					flash[:notice] = "That information is incorrect. Please try again"
+					redirect "/home"
+				end
 			else
-				flash[:notice] = "That information is incorrect. Please try again"
+				flash[:notice] = "Your account has not be approved yet. Please try again later"
 				redirect "/home"
 			end
-		else
-			flash[:notice] = "Your account has not be approved yet. Please try again later"
-			redirect "/home"
 		end
 	end
 end
