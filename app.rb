@@ -168,7 +168,7 @@ post '/sign-up-process' do
 			Notification.create(notice: "#{@signup.lname.capitalize}, #{@signup.fname.capitalize} is waiting to be approved.", user_id: @signup.id) 
 		    options = {
   				:to => @signup.email,
-  				:from => "dcrute25@hotmail.com",
+  				:from => "admin@crutefamilyties.com",
   				:subject => "Welcome #{@signup2.username.capitalize} to FamilyTies",
   				:headers => { 'Content-Type' => 'text/html' },
   				:body => erb(:welcome_email, :layout => :layout_email),
@@ -349,7 +349,7 @@ get '/approve_user' do
 			@user = User.find(@profilein.user_id)
 			options = {
   				:to => @user.email,
-  				:from => "dcrute25@hotmail.com",
+  				:from => "admin@crutefamilyties.com",
   				:subject => "#{@profilein.username.capitalize} is Approved for FamilyTies",
   				:headers => { 'Content-Type' => 'text/html' },
   				:body => erb(:approved_email, :layout => :layout_email),
