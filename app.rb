@@ -309,7 +309,7 @@ post '/password_reset' do
 					redirect "/edit_account"
 				else
 					flash[:notice] = "That information is incorrect. Please try again"
-					redirect "/home"
+					redirect "/forgot_password"
 				end
 			else
 				flash[:notice] = "Your account has not be approved yet. Please try again later"
