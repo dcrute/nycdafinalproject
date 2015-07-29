@@ -148,7 +148,7 @@ ul{
 
 a{
 	font-size: 20px;
-	color: #FF3333;
+	color: #00000A;
 	text-decoration: none;
 	font-style: oblique;
 }
@@ -325,6 +325,7 @@ content:'';
 display:block;
 clear:both;
 }
+
 #header:after {
 content:'';
 display:block;
@@ -416,7 +417,7 @@ input[type=submit]{
 	cursor:pointer
 }
 
-#comment {
+.comment {
 	border: 1px solid black;
 	width: 75%;
 	border-radius: 5px;
@@ -431,13 +432,14 @@ h6, h6 a, h6 a:hover{
 	font-size:17px;
 	color: #00000A;
 }
-#comment h5{
+
+.comment h5{
 	margin:0;
 	padding:5px;
 	font-size:20px;
 }
 
-#comment h6{
+.comment h6{
 	margin:0;
 	padding:0;
 	font-size:17px;
