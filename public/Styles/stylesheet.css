@@ -417,8 +417,8 @@ input[type=submit]{
 	cursor:pointer
 }
 
-div.comment {
-	border: 1px solid black;
+#comment {
+	border: 1px solid #000000;
 	width: 75%;
 	border-radius: 5px;
 	background-color: rgba(219,219,219,0.50);
@@ -433,20 +433,20 @@ h6, h6 a, h6 a:hover{
 	color: #00008F;
 }
 
-.comment h5{
+#comment h5{
 	margin:0;
 	padding:5px;
 	font-size:20px;
 }
 
-.comment h6{
+#comment h6{
 	margin:0;
 	padding:0;
 	font-size:17px;
 }
 
 .feed{
-	border-bottom:1px solid black;
+	border-bottom:1px solid #000000;
 }
 
 .Links {
