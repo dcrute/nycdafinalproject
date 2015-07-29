@@ -417,7 +417,7 @@ input[type=submit]{
 	cursor:pointer
 }
 
-.comment {
+div.comment {
 	border: 1px solid black;
 	width: 75%;
 	border-radius: 5px;
