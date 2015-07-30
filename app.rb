@@ -326,7 +326,7 @@ post '/password_reset' do
 
 					# session[:user_id] = @profile_check.id
 					flash[:notice] = "A temporary password will be e-mailed to you shortly."
-					redirect "/home"
+					redirect "/login"
 				else
 					flash[:notice] = "That information is incorrect. Please try again"
 					redirect "/forgot_password"
