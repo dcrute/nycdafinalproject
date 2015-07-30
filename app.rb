@@ -22,7 +22,7 @@ end}
 
 use Rack::Flash, :sweep => true
 set :sessions, true
-configure(:development) {set :database, {adapter: "sqlite3", database: "sqlite3:exampledb.sqlite3"}}
+configure(:development) {set :database, {adapter: "sqlite3", database: "exampledb.sqlite3"}}
 configure(:development) {set :session_secret, 'This is a secret key'}
 configure(:production) {set :session_secret, ENV['SECRET_SESSION']}
 require './models'
@@ -127,10 +127,10 @@ end
 
 post '/login-process' do
 	#puts "my params are" + params.inspect 
-	@userin = Profile.find_by_username(params[:username].downcase)
-	if @userin && @userin.password == params[:password] && @userin.approved == true
-		session[:user_id] = @userin.id
-		flash[:notice] = "Welcome back #{@userin.username.capitalize}"
+	@profile_in = Profile.find_by_username(params[:username].downcase)
+	if @profile_in && @profile_in.password == params[:password] && @profile_in.approved == true
+		session[:user_id] = @profile_in.id
+		flash[:notice] = "Welcome back #{@profile_in.username.capitalize}"
 		redirect "/home"   
 	else
 		flash[:notice] = "Oh no. Something's wrong."
@@ -301,12 +301,32 @@ post '/password_reset' do
 		else
 			if @profile.approved == true
 				if @profile.username == @profile_check.username && @profile.hometown == @profile_check.hometown && @profile.bday == @profile_check.bday
-					#random_password = Array.new(10).map { (65 + rand(58)).chr }.join
-					#@profile_check.password = random_password
-					#@profile_check.save!
-					session[:user_id] = @profile_check.id
-					flash[:notice] = "Take this time to update your password!"
-					redirect "/edit_account"
+					@random_password = Array.new(10).map { (65 + rand(58)).chr }.join
+					@profile_check.password = @random_password
+					@profile_check.save!
+
+					options = {
+  				:to => @user.email,
+  				:from => "admin@crutefamilyties.com",
+  				:subject => "#{@user.username.capitalize}'s Password Reset",
+  				:headers => { 'Content-Type' => 'text/html' },
+  				:body => erb(:password_email, :layout => :layout_email),
+ 				:via => :smtp,
+  				:via_options => {
+   					:address => 'smtp.sendgrid.net',
+    				:port => '587',
+    				:domain => 'heroku.com',
+    				:user_name => ENV['SENDGRID_USERNAME'],
+    				:password => ENV['SENDGRID_PASSWORD'],
+    				:authentication => :plain,
+    				:enable_starttls_auto => true
+    			}
+  			}
+		    Pony.mail(options)
+
+					# session[:user_id] = @profile_check.id
+					flash[:notice] = "A temporary password will be e-mailed to you shortly."
+					redirect "/home"
 				else
 					flash[:notice] = "That information is incorrect. Please try again"
 					redirect "/forgot_password"

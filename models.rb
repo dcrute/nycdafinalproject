@@ -79,6 +79,15 @@ class Profile < ActiveRecord::Base
     @password = Password.create(new_password)
     self.password_hash = @password
   end
+
+  # def security
+  #   @secruity ||= Password.new(security_answer)
+  # end
+
+  # def secruity=(new_security)
+  #   @security = Password.create(new_security)
+  #   self.security_answer = @security
+  # end
 end
 
 class Post < ActiveRecord::Base
